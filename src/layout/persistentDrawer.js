@@ -15,8 +15,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const drawerWidth = 240;
 
@@ -71,9 +72,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const items = [
-  { text: 'Inbox', icon: <InboxIcon /> },
-  { text: 'Inbox', icon: <InboxIcon /> },
-  { text: 'Inbox', icon: <InboxIcon /> },
+  { text: 'Home', icon: <HomeIcon />, route: '/home' },
+  { text: 'Pedidos', icon: <HelpOutlineIcon />, route: '/pedidos' },
+  // { text: 'Inbox', icon: <InboxIcon />, route: '' },
 ];
 
 export default function PersistentDrawerLeft({ children }) {
@@ -94,6 +95,8 @@ export default function PersistentDrawerLeft({ children }) {
     switch (location.pathname) {
       case '/home':
         return 'Home';
+      case '/pedidos':
+        return 'Pedidos';
       default:
         return 'Unknown';
     }
@@ -102,7 +105,7 @@ export default function PersistentDrawerLeft({ children }) {
   const routeName = getRouteName();
 
   return (
-    <Box sx={{ display: 'flex', borderRight: 0}}>
+    <Box sx={{ display: 'flex', borderRight: 0 }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} style={{ backgroundColor: '#0C0C0C', borderRight: 0 }}>
         <Toolbar sx={{ borderRight: 0 }}>
@@ -141,22 +144,24 @@ export default function PersistentDrawerLeft({ children }) {
           </IconButton>
         </DrawerHeader>
         {/* <Divider /> */}
-        <List style={{ backgroundColor: '#222222', height: '100%', color: '#fff' , borderRight: 0}}>
+        <List style={{ backgroundColor: '#222222', height: '100%', color: '#fff', borderRight: 0 }}>
           {items.map((item, index) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon sx={{ color: '#fff' }}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
+            <Link to={item.route} style={{ textDecoration: 'none', color: '#fff' }}>
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon sx={{ color: '#fff' }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
-      <Main open={open} sx={{ backgroundColor: '#161616', height: '100vh', borderRight: 0 }}>
-        <DrawerHeader />
-        {children}
+      <Main open={open}>
+          <DrawerHeader />
+          {children}
       </Main>
     </Box>
   );

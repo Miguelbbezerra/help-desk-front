@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #161616; /* Ajuste conforme necessário */
+    padding: 10px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    /* max-width: 600px; */
+    background: #2a2a2a; /* Ajuste conforme necessário */
+    padding: 10px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.status-category {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ver-mais {
+    color: #1976D2;
+    text-decoration: none;
+    margin-top: auto;
+    margin-right: 0;
+}
+
+h2 {
+    margin: 0
+}
+
+/* ITENS DE STATUS CORES */
+.status-aberto { background-color: #8BC34A; color: #fff; } /* Verde */
+.status-em-andamento { background-color: #FF9800; color: #fff; } /* Laranja */
+.status-aguardando-usuario { background-color: #03A9F4; color: #fff; } /* Azul claro */
+.status-em-espera { background-color: #9E9E9E; color: #fff; } /* Cinza */
+.status-em-revisao { background-color: #2196F3; color: #fff; } /* Azul */
+.status-finalizado { background-color: #4CAF50; color: #fff; } /* Verde escuro */
+.status-cancelado { background-color: #F44336; color: #fff; } /* Vermelho */
+.status-pendente { background-color: #FFC107; color: #fff; } /* Amarelo */
+.status-reaberto { background-color: #FF5722; color: #fff; } /* Laranja escuro */
+/* ITENS DE STATUS CORES */

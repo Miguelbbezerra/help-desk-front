@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #161616;
 }
 
 code {
@@ -16,6 +17,8 @@ code {
 .bloco {
   background-color: #222222;
   border-radius: 0.4em;
-  padding: 3px;
+  padding: 10px;
   color: #fff;
+  height: auto;
+  width: 100%;
 }

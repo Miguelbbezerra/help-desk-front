@@ -1,0 +1,41 @@
+.status{
+    margin: 3px;
+    padding: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* ITENS DE STATUS CORES */
+.aberto {background-color: transparent; border-radius: 6px; border: 1px solid #8BC34A; color: #8BC34A; } /* Verde */
+.em-andamento {background-color: transparent; border-radius: 6px; border: 1px solid #FF9800; color: #FF9800; } /* Laranja */
+.aguardando-usuario {background-color: transparent; border-radius: 6px; border: 1px solid #03A9F4; color: #03A9F4; } /* Azul claro */
+.em-espera {background-color: transparent; border-radius: 6px; border: 1px solid #9E9E9E; color: #9E9E9E; } /* Cinza */
+.em-revisao {background-color: transparent; border-radius: 6px; border: 1px solid #2f3ddf; color: #2f3ddf; } /* Azul escuro */
+.finalizado {background-color: transparent; border-radius: 6px; border: 1px solid #4CAF50; color: #4CAF50; } /* Verde escuro */
+.cancelado {background-color: transparent; border-radius: 6px; border: 1px solid #F44336; color: #F44336; } /* Vermelho */
+.pendente {background-color: transparent; border-radius: 6px; border: 1px solid #FFC107; color: #FFC107; } /* Amarelo */
+.reaberto {background-color: transparent; border-radius: 6px; border: 1px solid #FF5722; color: #FF5722; } /* Laranja escuro */
+
+.aberto:hover { background-color: #8BC34A; color: #fff; } /* Verde */
+.em-andamento:hover { background-color: #FF9800; color: #fff; } /* Laranja */
+.aguardando-usuario:hover { background-color: #03A9F4; color: #fff; } /* Azul claro */
+.em-espera:hover { background-color: #9E9E9E; color: #fff; } /* Cinza */
+.em-revisao:hover { background-color: #2f3ddf; color: #fff; } /* Azul escuro */
+.finalizado:hover { background-color: #4CAF50; color: #fff; } /* Verde escuro */
+.cancelado:hover { background-color: #F44336; color: #fff; } /* Vermelho */
+.pendente:hover { background-color: #FFC107; color: #fff; } /* Amarelo */
+.reaberto:hover { background-color: #FF5722; color: #fff; } /* Laranja escuro */
+
+
+
+.aberto-selecionado {border-radius: 6px; border: 1px solid #8BC34A; background-color: #8BC34A; color: #fff; } /* Verde */
+.em-andamento-selecionado {border-radius: 6px; border: 1px solid #FF9800; background-color: #FF9800; color: #fff; } /* Laranja */
+.aguardando-usuario-selecionado {border-radius: 6px; border: 1px solid #03A9F4; background-color: #03A9F4; color: #fff; } /* Azul claro */
+.em-espera-selecionado {border-radius: 6px; border: 1px solid #9E9E9E; background-color: #9E9E9E; color: #fff; } /* Cinza */
+.em-revisao-selecionado {border-radius: 6px; border: 1px solid #2f3ddf; background-color: #2f3ddf; color: #fff; } /* Azul escuro */
+.finalizado-selecionado {border-radius: 6px; border: 1px solid #4CAF50; background-color: #4CAF50; color: #fff; } /* Verde escuro */
+.cancelado-selecionado {border-radius: 6px; border: 1px solid #F44336; background-color: #F44336; color: #fff; } /* Vermelho */
+.pendente-selecionado {border-radius: 6px; border: 1px solid #FFC107; background-color: #FFC107; color: #fff; } /* Amarelo */
+.reaberto-selecionado {border-radius: 6px; border: 1px solid #FF5722; background-color: #FF5722; color: #fff; } /* Laranja escuro */
+/* ITENS DE STATUS CORES */
