@@ -1,0 +1,13 @@
+.mensagens {
+    width: 40%;
+    background-color: #222222;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    white-space: wrap;
+}
+
+.div-mensagens {
+    width: 100%;
+    padding: 5px;
+}

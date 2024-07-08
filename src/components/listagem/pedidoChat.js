@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import '../../styles/pedidoChat.css'
-import { CardMedia, Divider } from "@mui/material";
+import { Button, CardMedia, Divider } from "@mui/material";
 
 export default function PedidoChat({ ticketId }) {
 
@@ -50,19 +50,27 @@ export default function PedidoChat({ ticketId }) {
         return <p>Nenhum ticket encontrado.</p>;
     }
 
-    return (
-        <div className="container-ticket">
-            <h2>{ticket.user.fullName}</h2>
-            <p className="item">{ticket.user.level}</p>
-            <Divider sx={{ margin: '5px 0', backgroundColor: 'black' }} />
-            <h3>{ticket.title}</h3>
-            <h3>{ticket.body}</h3>
-            <p className={`${ticket.status.status}-selecionado`}>{ticket.status.status}</p>
-            <p className={`category-selecionado`}>{ticket.category.category}</p>
-            <Divider sx={{ margin: '5px 0', backgroundColor: 'black' }} />
-            <CardMedia component='img' image="https://placehold.co/300x300"/>
-            <Divider sx={{ margin: '5px 0', backgroundColor: 'black' }} />
-            <p>Data de Criação: {new Date(ticket.createdAt).toLocaleString()}</p>
+    return (<>
+        <div className="container-ticket" style={{ position: 'fixed'}}>
+            <div>
+                <h2>{ticket.user.fullName}</h2>
+                <p className="item">{ticket.user.level}</p>
+                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                <h3>{ticket.title}</h3>
+                <h3>{ticket.body}</h3>
+                <p style={{ whiteSpace: 'wrap' }} className={`${ticket.status.status}-selecionado`}>{ticket.status.status.replaceAll('-', ' ')}</p>
+                <p style={{ whiteSpace: 'wrap' }} className={`category-selecionado`}>{ticket.category.category.replaceAll('-', ' ')}</p>
+                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                <CardMedia component='img' image="https://placehold.co/300x300" />
+                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                <p>Data de Criação: {new Date(ticket.createdAt).toLocaleString()}</p>
+                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button sx={{ width: '45%', border: '1px solid #1976D2' }}>Editar</Button>
+                    <Button sx={{ width: '45%', border: '1px solid #F44336', color: '#F44336' }}>Excluir</Button>
+                </div>
+            </div>
         </div>
+    </>
     );
 }

@@ -44,8 +44,8 @@ export default function CardPedido({ status, category }) {
                         </div>
                         <div className='right'>
                             <div className='status-category'>
-                                <div className={`status-${ticket.status.status}`}>{ticket.status.status}</div>
-                                <div className='category-selecionado' style={{margin: '0 0 0 10px'}}>{ticket.category.category}</div>
+                                <div style={{fontSize: 12}} className={`status-${ticket.status.status}`}>{ticket.status.status.replaceAll('-', ' ')}</div>
+                                <div className='category-selecionado' style={{margin: '0 0 0 10px', cursor: 'default', fontSize: 12}}>{ticket.category.category.replaceAll('-', ' ')}</div>
                             </div>
                             <Link to={`/chat/${ticket.id}`} className='ver-mais'>Ver Mais</Link>
                         </div>
