@@ -8,10 +8,10 @@ export default function Chat() {
     return (
         <>
             <Grid container>
-                <Grid item xs={12} sm={12} md={6} lg={9}>
+                <Grid item xs={12} sm={12} md={8} lg={9}>
                     <Mensagens />
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={3}>
+                <Grid item xs={12} sm={12} md={4} lg={3}>
                     <PedidoChat ticketId={id} />
                 </Grid>
             </Grid>
