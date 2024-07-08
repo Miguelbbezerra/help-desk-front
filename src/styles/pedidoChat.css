@@ -1,0 +1,45 @@
+h2{
+    margin: 0;
+    text-transform: uppercase;
+}
+h3{
+    margin: 0;
+}
+p{
+    margin: 6px 0;
+}
+
+.item{
+    text-transform: uppercase;
+}
+
+.category-selecionado{
+    color: #fff;
+    border: 1px solid #1976D2;
+    background-color: #1976D2;
+    border-radius: 6px;
+    padding: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: default;
+}
+
+/* ITENS DE STATUS CORES */
+.aberto-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #8BC34A; background-color: #8BC34A; color: #fff; } /* Verde */
+.em-andamento-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #FF9800; background-color: #FF9800; color: #fff; } /* Laranja */
+.aguardando-usuario-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #03A9F4; background-color: #03A9F4; color: #fff; } /* Azul claro */
+.em-espera-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #9E9E9E; background-color: #9E9E9E; color: #fff; } /* Cinza */
+.em-revisao-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #2f3ddf; background-color: #2f3ddf; color: #fff; } /* Azul escuro */
+.finalizado-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #4CAF50; background-color: #4CAF50; color: #fff; } /* Verde escuro */
+.cancelado-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #F44336; background-color: #F44336; color: #fff; } /* Vermelho */
+.pendente-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #FFC107; background-color: #FFC107; color: #fff; } /* Amarelo */
+.reaberto-selecionado {padding: 10px; text-transform: uppercase ;border-radius: 6px; border: 1px solid #FF5722; background-color: #FF5722; color: #fff; } /* Laranja escuro */
+/* ITENS DE STATUS CORES */
+
+.container-ticket{
+    background-color: #222222;
+    border-radius: 6px;
+    padding: 10px;
+    color: #fff;
+    height: 100%;
+    }

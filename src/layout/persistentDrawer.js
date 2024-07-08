@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
@@ -91,12 +91,18 @@ export default function PersistentDrawerLeft({ children }) {
 
   const location = useLocation();
 
+  const { id } = useParams()
+
   const getRouteName = () => {
     switch (location.pathname) {
       case '/home':
         return 'Home';
       case '/pedidos':
         return 'Pedidos';
+      case '/chat/':
+        return 'Chat';
+      case `/chat/${id}`:
+        return 'Chat';
       default:
         return 'Unknown';
     }
@@ -160,8 +166,8 @@ export default function PersistentDrawerLeft({ children }) {
         </List>
       </Drawer>
       <Main open={open}>
-          <DrawerHeader />
-          {children}
+        <DrawerHeader />
+        {children}
       </Main>
     </Box>
   );

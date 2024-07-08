@@ -37,6 +37,7 @@
 .status-category {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
 }
 
 .ver-mais {
@@ -50,14 +51,48 @@ h2 {
     margin: 0
 }
 
+.category{
+    border: 1px solid #1976D2;
+    color: #1976D2;
+    border-radius: 6px;
+    background-color: transparent;
+    padding: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category:hover{
+    color: #fff;
+    border: 1px solid #1976D2;
+    background-color: #1976D2;
+    border-radius: 6px;
+    padding: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.category-selecionado{
+    color: #fff;
+    border: 1px solid #1976D2;
+    background-color: #1976D2;
+    border-radius: 6px;
+    padding: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
 /* ITENS DE STATUS CORES */
-.status-aberto { background-color: #8BC34A; color: #fff; } /* Verde */
-.status-em-andamento { background-color: #FF9800; color: #fff; } /* Laranja */
-.status-aguardando-usuario { background-color: #03A9F4; color: #fff; } /* Azul claro */
-.status-em-espera { background-color: #9E9E9E; color: #fff; } /* Cinza */
-.status-em-revisao { background-color: #2196F3; color: #fff; } /* Azul */
-.status-finalizado { background-color: #4CAF50; color: #fff; } /* Verde escuro */
-.status-cancelado { background-color: #F44336; color: #fff; } /* Vermelho */
-.status-pendente { background-color: #FFC107; color: #fff; } /* Amarelo */
-.status-reaberto { background-color: #FF5722; color: #fff; } /* Laranja escuro */
+.status-aberto {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #8BC34A; color: #fff; } /* Verde */
+.status-em-andamento {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #FF9800; color: #fff; } /* Laranja */
+.status-aguardando-usuario {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #03A9F4; color: #fff; } /* Azul claro */
+.status-em-espera {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #9E9E9E; color: #fff; } /* Cinza */
+.status-em-revisao {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #2196F3; color: #fff; } /* Azul */
+.status-finalizado {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #4CAF50; color: #fff; } /* Verde escuro */
+.status-cancelado {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #F44336; color: #fff; } /* Vermelho */
+.status-pendente {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #FFC107; color: #fff; } /* Amarelo */
+.status-reaberto {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #FF5722; color: #fff; } /* Laranja escuro */
 /* ITENS DE STATUS CORES */

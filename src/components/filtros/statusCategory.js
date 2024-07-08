@@ -1,38 +1,23 @@
-import { Button } from "@mui/material";
 import '../../styles/statusCategory.css'
 import { useEffect, useState } from "react";
 
-export default function StatusCategory() {
-
-    const [status, setStatus] = useState([]);
+export default function StatusCategory({ setStatus, setCategory }) {
+    // STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS
+    const [statusData, setDataStatus] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState(null); // Estado para armazenar o botão selecionado
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const data = await fetchStatus();
-                setStatus(data);
+                setDataStatus(data);
             } catch (error) {
-                console.error('Erro ao buscar categorias:', error);
+                console.error('Erro ao buscar status:', error);
             }
         }
         fetchData();
 
-        // function fetchFiltro() {
-        //     const urlParams = new URLSearchParams(window.location.search);
-        //     const statusParam = urlParams.get('status'); // Verifica se há um parâmetro 'status' na URL
-
-        //     if (statusParam) {
-        //         return statusParam; // Retorna o valor do parâmetro 'status' se ele existir
-        //     } else {
-        //         return null; // Retorna null ou faz outra manipulação se 'status' não estiver presente
-        //     }
-        // }
-
-        // const filtro = fetchFiltro();
-        // setFiltro(filtro)
     }, []);
-
-    const [filtro, setFiltro] = useState([]);
 
     async function fetchStatus() {
         const requestOptions = {
@@ -40,52 +25,103 @@ export default function StatusCategory() {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:5000/category", requestOptions);
+        const response = await fetch("http://localhost:5000/status", requestOptions);
         if (!response.ok) {
-            throw new Error('Falha em listar as categorias');
+            throw new Error('Falha em listar os status');
         }
 
         const data = await response.json();
         return data;
     }
 
+    const handleStatusClick = (statusId) => {
+        if (selectedStatus === statusId) {
+            setSelectedStatus(null); // Desseleciona o botão se ele já estiver selecionado
+            setStatus(''); // Limpa o filtro se nenhum botão estiver selecionado
+        } else {
+            setSelectedStatus(statusId); // Seleciona o botão
+            setStatus(`status=${statusId}`); // Define o filtro conforme o statusId
+        }
+    };
+
+    // STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS
+
+    // CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY
+    const [categoryData, setDataCategory] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null); // Estado para armazenar o botão selecionado
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await fetchCategory();
+                setDataCategory(data);
+            } catch (error) {
+                console.error('Erro ao buscar Category:', error);
+            }
+        }
+        fetchData();
+
+    }, []);
+
+    async function fetchCategory() {
+        const requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        const response = await fetch("http://localhost:5000/category", requestOptions);
+        if (!response.ok) {
+            throw new Error('Falha em listar os category');
+        }
+
+        const data = await response.json();
+        return data;
+    }
+
+    const handleCategoryClick = (categoryId) => {
+        if (selectedCategory === categoryId) {
+            setSelectedCategory(null); // Desseleciona o botão se ele já estiver selecionado
+            setCategory(''); // Limpa o filtro se nenhum botão estiver selecionado
+        } else {
+            setSelectedCategory(categoryId); // Seleciona o botão
+            setCategory(`categoryId=${categoryId}`); // Define o filtro conforme o categoryId
+        }
+    };
+    // CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY CATEGORY
+
     return (
         <>
             <div style={{ margin: '0 0 10px 0' }}>
                 <div>
-                    <h3 style={{ color: 'white', margin: 0 }}>Status</h3>
+                    <h3 style={{ color: 'white', margin: '3px  0' }}>Status</h3>
                 </div>
                 <div>
-                    {status.map((statusItem, index) => (
-                        // filtro === statusItem.category ? (
-                        //     <a href={``}>
-                        //         <button key={index} className={`status ${statusItem.category}-selecionado`}>
-                        //             {statusItem.category}
-                        //         </button>
-                        //     </a>
-                        // ) : (
-                        //     <a href={`?status=${statusItem.category}`}>
-                        //         <button key={index} className={`status ${statusItem.category}`}>
-                        //             {statusItem.category}
-                        //         </button>
-                        //     </a>
-                        // )
-
-                        <button key={index} onClick={() => setFiltro(statusItem.category)} className={`status ${statusItem.category}`}>
-                            {statusItem.category}
+                    {statusData.map((statusItem, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleStatusClick(statusItem.id)}
+                            className={`status ${statusItem.status}${selectedStatus === statusItem.id ? '-selecionado' : ''}`}
+                        >
+                            {statusItem.status.replace('-', ' ')}
                         </button>
                     ))}
                 </div>
             </div>
             <div>
                 <div>
-                    <h3 style={{ color: 'white', margin: 0 }}>Categoria</h3>
+                    <h3 style={{ color: 'white', margin: '3px  0' }}>Categoria</h3>
                 </div>
                 <div>
-                    <Button variant="outlined" sx={{ margin: '3px 3px' }}>teste</Button>
-                    <Button variant="contained" sx={{ margin: '3px 3px' }}>isso</Button>
-                    <Button variant="outlined" sx={{ margin: '3px 3px' }}>aquele</Button>
-                    <Button variant="outlined" sx={{ margin: '3px 3px' }}>amanha</Button>
+                    {categoryData.map((categoryItem, index) => (
+                        <button
+                        style={{ margin: '3px'}}
+                            key={index}
+                            onClick={() => handleCategoryClick(categoryItem.id)}
+                            className={`category${selectedCategory === categoryItem.id ? '-selecionado' : ''}`}
+                        >
+                            {categoryItem.category.replaceAll('-', ' ')}
+                        </button>
+                    ))}
                 </div>
             </div>
         </>

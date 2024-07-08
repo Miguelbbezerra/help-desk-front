@@ -6,6 +6,7 @@
     transition: 0.3s;
 }
 
+
 /* ITENS DE STATUS CORES */
 .aberto {background-color: transparent; border-radius: 6px; border: 1px solid #8BC34A; color: #8BC34A; } /* Verde */
 .em-andamento {background-color: transparent; border-radius: 6px; border: 1px solid #FF9800; color: #FF9800; } /* Laranja */
@@ -39,3 +40,4 @@
 .pendente-selecionado {border-radius: 6px; border: 1px solid #FFC107; background-color: #FFC107; color: #fff; } /* Amarelo */
 .reaberto-selecionado {border-radius: 6px; border: 1px solid #FF5722; background-color: #FF5722; color: #fff; } /* Laranja escuro */
 /* ITENS DE STATUS CORES */
+

@@ -2,6 +2,7 @@ import { Route, createBrowserRouter, createRoutesFromElements } from "react-rout
 import Root from "../root/root";
 import Home from "../../pages/home";
 import Pedidos from "../../pages/pedidos";
+import Chat from "../../pages/chat";
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <>
@@ -9,6 +10,7 @@ export const router = createBrowserRouter(createRoutesFromElements(
         <Route element={<Root />}>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/pedidos" element={<Pedidos />}></Route>
+            <Route path="/chat/:id" element={<Chat />}></Route>
         </Route>
     </>
 ))
