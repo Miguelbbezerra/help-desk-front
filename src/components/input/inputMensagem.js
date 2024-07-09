@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { Button, TextField, createTheme } from '@mui/material';
@@ -60,7 +61,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
   };
 
   return (
-    <div style={{ margin: '10px 0' }}>
+    <div style={{ margin: '10px 0', width: '100%'}}>
       <form style={{ display: 'flex' }} onSubmit={handleSubmit}>
         <ThemeProvider theme={theme}>
           <TextField
@@ -83,7 +84,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
             }}
           />
         </ThemeProvider>
-        <Button variant="outlined" sx={{ width: '25%', height: '40px', margin: '0 10px' }} type="submit">
+        <Button id='index' variant="outlined" sx={{ width: '25%', height: '40px', margin: '0 10px' }} type="submit">
           Enviar
         </Button>
       </form>
