@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:5000');
 
-export function Mensagens({ messages, ticketId, userId }) {
+export function Mensagens({ ticketId}) {
   const { id } = useParams();
   const [mensagens, setMensagens] = useState([]);
   const [highlightedMessageId, setHighlightedMessageId] = useState(null);
