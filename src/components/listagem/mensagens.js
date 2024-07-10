@@ -75,7 +75,7 @@ export function Mensagens({ ticketId}) {
       ) : (
         <>
           {mensagens.map((mensagem, index) => (
-            <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: parseInt(mensagem.userId) === 1 ? 'flex-end' : 'flex-start' }}>
+            <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: parseInt(mensagem.userId) === 2 ? 'flex-end' : 'flex-start' }}>
               <div style={{ width: '50%' }}>
                 <Grid item xs={12} className={highlightedMessageId === mensagem.id ? 'highlight' : ''} style={{
                   display: 'flex', flexDirection: 'column', backgroundColor: '#222222', margin: '5px', borderRadius: '6px', padding: '10px', color: 'lightgray',

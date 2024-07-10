@@ -1,13 +1,14 @@
 import { Button, Divider, Grid, Menu, useMediaQuery } from "@mui/material";
 import ModalPedido from "../components/modal/modalPedido";
 import InputPesquisa from "../components/filtros/inputPesquisa";
-import StatusCategory from "../components/filtros/statusCategory";
+import {StatusCategory} from "../components/filtros/statusCategory";
 import CardPedido from "../components/listagem/cardPedido";
 import { useState } from "react";
 
 export default function Pedidos() {
-    const [status, setStatus] = useState([]);
-    const [category, setCategory] = useState([]);
+    const [status, setStatus] = useState('');
+    const [category, setCategory] = useState('');
+    const [ticket, setTicket] = useState('');
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -18,14 +19,20 @@ export default function Pedidos() {
         setAnchorEl(null);
     };
 
-    const isSmallFiltro = useMediaQuery('(max-width: 1199px)')
-    const isSmallTop = useMediaQuery('(max-width: 899px)')
+    const isSmallFiltro = useMediaQuery('(max-width: 1199px)');
+    const isSmallTop = useMediaQuery('(max-width: 899px)');
+
+    const handleClearFilters = () => {
+        setStatus('');
+        setCategory('');
+        setTicket('');
+    };
 
     return (
         <>
             <Grid container sx={{ display: "flex", justifyContent: 'space-between' }}>
                 <Grid xs={12} sm={12} md={5} lg={4}>
-                    <ModalPedido />
+                    <ModalPedido setTicket={setTicket} />
                 </Grid>
                 {isSmallTop ? (
                     <Grid xs={12} sm={12} md={12} lg={12}>
@@ -83,9 +90,14 @@ export default function Pedidos() {
                     )}
                 </Grid>
                 <Grid xs={12} sm={12} md={12} lg={9}>
-                    <CardPedido status={status} category={category} />
+                    {(status || category || ticket) && (
+                        <Button onClick={handleClearFilters} variant="contained" color="secondary">
+                            Clear Filters
+                        </Button>
+                    )}
+                    <CardPedido status={status} category={category} ticketId={ticket} />
                 </Grid>
             </Grid>
         </>
-    )
+    );
 }

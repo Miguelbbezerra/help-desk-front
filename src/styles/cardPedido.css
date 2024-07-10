@@ -88,9 +88,9 @@ h2 {
 /* ITENS DE STATUS CORES */
 .status-aberto {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #8BC34A; color: #fff; } /* Verde */
 .status-em-andamento {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #FF9800; color: #fff; } /* Laranja */
-.status-aguardando-usuario {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #03A9F4; color: #fff; } /* Azul claro */
+.status-aguardando-usuário {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #03A9F4; color: #fff; } /* Azul claro */
 .status-em-espera {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #9E9E9E; color: #fff; } /* Cinza */
-.status-em-revisao {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #2196F3; color: #fff; } /* Azul */
+.status-em-revisão {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #2196F3; color: #fff; } /* Azul */
 .status-finalizado {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #4CAF50; color: #fff; } /* Verde escuro */
 .status-cancelado {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #F44336; color: #fff; } /* Vermelho */
 .status-pendente {white-space: nowrap; border-radius: 6px; padding: 10px; text-transform: uppercase; background-color: #FFC107; color: #fff; } /* Amarelo */

@@ -1,7 +1,14 @@
 import '../../styles/statusCategory.css'
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
-export default function StatusCategory({ setStatus, setCategory }) {
+export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
+    useImperativeHandle(ref, () => ({
+        clearFilters() {
+            setSelectedStatus(null)
+            setSelectedCategory(null)
+        }
+    }));
+    
     // STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS
     const [statusData, setDataStatus] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState(null); // Estado para armazenar o botão selecionado
@@ -92,6 +99,7 @@ export default function StatusCategory({ setStatus, setCategory }) {
     return (
         <>
             <div style={{ margin: '0 0 10px 0' }}>
+
                 <div>
                     <h3 style={{ color: 'white', margin: '3px  0' }}>Status</h3>
                 </div>
@@ -114,7 +122,7 @@ export default function StatusCategory({ setStatus, setCategory }) {
                 <div>
                     {categoryData.map((categoryItem, index) => (
                         <button
-                        style={{ margin: '3px'}}
+                            style={{ margin: '3px' }}
                             key={index}
                             onClick={() => handleCategoryClick(categoryItem.id)}
                             className={`category${selectedCategory === categoryItem.id ? '-selecionado' : ''}`}
@@ -126,4 +134,4 @@ export default function StatusCategory({ setStatus, setCategory }) {
             </div>
         </>
     )
-}
+})
