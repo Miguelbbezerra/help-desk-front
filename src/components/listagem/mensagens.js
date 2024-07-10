@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import '../../styles/mensagens.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, IconButton, useMediaQuery } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:5000');
@@ -13,7 +13,6 @@ export function Mensagens({ messages, ticketId, userId }) {
   const [mensagens, setMensagens] = useState([]);
   const [highlightedMessageId, setHighlightedMessageId] = useState(null);
 
-  const messageSize = useMediaQuery('(max-width: 720px)')
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
