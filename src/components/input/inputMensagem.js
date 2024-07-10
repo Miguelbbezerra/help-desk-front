@@ -71,7 +71,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
             onChange={(e) => setMessage(e.target.value)}
             sx={{
               backgroundColor: '#222222',
-              width: '70%',
+              width: '75%',
               '& .MuiInputBase-input': {
                 color: 'white',
               },
@@ -84,7 +84,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
             }}
           />
         </ThemeProvider>
-        <Button id='index' variant="outlined" sx={{ width: '25%', height: '40px', margin: '0 10px' }} type="submit">
+        <Button id='index' variant="outlined" sx={{ width: '25%', height: '40px'}} type="submit">
           Enviar
         </Button>
       </form>

@@ -11,3 +11,22 @@
     width: 100%;
     padding: 5px;
 }
+
+.row-normal{
+    flex-direction: row;
+}
+.row-reverse{
+    flex-direction: row-reverse;
+}
+
+.text-normal{
+    text-align: left;
+}
+
+.text-reverse{
+    text-align: right;
+}
+
+.highlight {
+  border: 2px solid red;
+}

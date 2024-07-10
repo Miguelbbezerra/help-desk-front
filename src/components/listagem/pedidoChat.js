@@ -52,41 +52,43 @@ export default function PedidoChat({ ticketId }) {
 
 
     return (<>
-        <Grid container className="container-ticket" sx={{ position: 'fixed', right: '1%', width: '25%', height: '85%' }}>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <h2>{ticket.user.fullName}</h2>
-                <p className="item">{ticket.user.level}</p>
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <h3>{ticket.title}</h3>
-                <h3>{ticket.body}</h3>
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <p style={{ whiteSpace: 'wrap' }} className={`${ticket.status.status}-selecionado`}>{ticket.status.status.replaceAll('-', ' ')}</p>
-                <p style={{ whiteSpace: 'wrap' }} className={`category-selecionado`}>{ticket.category.category.replaceAll('-', ' ')}</p>
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <CardMedia component='img' image="https://placehold.co/300x300" />
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <p>Data de Criação: {new Date(ticket.createdAt).toLocaleString()}</p>
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12}>
-                <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
-            </Grid>
-            <Grid item sx={12} sm={12} md={12} lg={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button sx={{ width: '45%', border: '1px solid #1976D2' }}>Editar</Button>
-                <Button sx={{ width: '45%', border: '1px solid #F44336', color: '#F44336' }}>Excluir</Button>
-            </Grid>
+        <Grid container  sx={{ height: '90%' }}>
+            <div className="container-ticket" style={{ position: 'fixed', height: '85%' }}>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <h2>{ticket.user.fullName}</h2>
+                    <p className="item">{ticket.user.level}</p>
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <h3>{ticket.title}</h3>
+                    <h3>{ticket.body}</h3>
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <p style={{ whiteSpace: 'wrap' }} className={`${ticket.status.status}-selecionado`}>{ticket.status.status.replaceAll('-', ' ')}</p>
+                    <p style={{ whiteSpace: 'wrap' }} className={`category-selecionado`}>{ticket.category.category.replaceAll('-', ' ')}</p>
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <CardMedia component='img' image="https://placehold.co/300x300" />
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <p>Data de Criação: {new Date(ticket.createdAt).toLocaleString()}</p>
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12}>
+                    <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
+                </Grid>
+                <Grid item sx={12} sm={12} md={12} lg={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button sx={{ width: '45%', border: '1px solid #1976D2' }}>Editar</Button>
+                    <Button sx={{ width: '45%', border: '1px solid #F44336', color: '#F44336' }}>Excluir</Button>
+                </Grid>
+            </div>
         </Grid >
     </>
     );

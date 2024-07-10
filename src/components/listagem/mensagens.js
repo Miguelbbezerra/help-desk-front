@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import '../../styles/mensagens.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:5000');
@@ -12,19 +11,26 @@ const socket = io('http://localhost:5000');
 export function Mensagens({ messages, ticketId, userId }) {
   const { id } = useParams();
   const [mensagens, setMensagens] = useState([]);
+  const [highlightedMessageId, setHighlightedMessageId] = useState(null);
+
+  const messageSize = useMediaQuery('(max-width: 720px)')
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
-      // Verificar se a mensagem pertence ao ticketId atual
       if (msg.ticketId === ticketId) {
         setMensagens((prevMensagens) => [...prevMensagens, msg]);
+        setHighlightedMessageId(msg.id);
+
+        // setTimeout(() => {
+        //   setHighlightedMessageId(null);
+        // }, 3000);
       }
     });
 
     return () => {
       socket.off('chat message');
     };
-  }, [ticketId]); // Adicionar ticketId como dependência para atualizar o listener quando mudar de chat
+  }, [ticketId]);
 
   useEffect(() => {
     fetchMensagens(id);
@@ -54,33 +60,32 @@ export function Mensagens({ messages, ticketId, userId }) {
   };
 
   return (
-    <>
-      {/* <div style={{ display: 'flex', flexDirection: 'column' }}> */}
-      <Grid container>
-        {!mensagens ? (
-          <p>Erro ao carregar mensagens</p>
-        ) : (
-          mensagens.map((mensagem, index) => (
-            <Grid item xs={12} sm={12} md={12} lg={12} key={index}
-              style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column',
-                backgroundColor: '#222222', margin: '5px 0', borderRadius: '6px', padding: '10px', color: 'lightgray'
-               }}
-            /* style={mensagem?.ticket?.userId !== mensagem?.userId ? {} : { float: 'right' }} */
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <h4 style={{ margin: '0', color: '#fff' }}>{mensagem?.user?.fullName}</h4>
-                <div>
-                  <IconButton><EditIcon color="primary" sx={{ fontSize: 20 }} /></IconButton>
-                  <IconButton onClick={() => handleDeleteMessage(mensagem.id)}><DeleteIcon color="error" sx={{ fontSize: 20 }} /></IconButton>
+    <Grid container style={{ width: '100%' }}>
+      {!mensagens ? (
+        <p>Erro ao carregar mensagens</p>
+      ) : (
+        mensagens.map((mensagem, index) => (
+          <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: parseInt(mensagem.userId) === 1 ? 'flex-end' : 'flex-start' }}>
+            <div style={{ width: '50%' }}>
+              <Grid item xs={12} className={highlightedMessageId === mensagem.id ? 'highlight' : ''} style={{
+                display: 'flex', flexDirection: 'column', backgroundColor: '#222222', margin: '5px', borderRadius: '6px', padding: '10px', color: 'lightgray',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <h4 style={{ margin: '0', color: '#fff' }}>{mensagem?.userId}</h4>
+                  <div>
+                    <IconButton><EditIcon color="primary" sx={{ fontSize: 20 }} /></IconButton>
+                    <IconButton onClick={() => handleDeleteMessage(mensagem.id)}><DeleteIcon color="error" sx={{ fontSize: 20 }} /></IconButton>
+                  </div>
                 </div>
-              </div>
-              <p style={{ wordWrap: 'break-word' }}>
-                {mensagem.message}
-              </p>
-            </Grid>
-          ))
-        )}
-      </Grid>
-    </>
+                <p style={{ wordWrap: 'break-word' }}>
+                  {mensagem.message}
+                </p>
+              </Grid>
+              <p style={{ color: 'gray', margin: 0 }}>{new Date(mensagem.createdAt).toLocaleString()}</p>
+            </div>
+          </Grid>
+        ))
+      )}
+    </Grid>
   );
 }
