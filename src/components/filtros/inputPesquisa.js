@@ -43,10 +43,17 @@ const theme = createTheme({
     },
 });
 
-export default function InputPesquisa() {
+export default function InputPesquisa({ setSearch }) {
+
+    function fetchSearch(event) {
+        const value = `search=${event.target.value}`
+        setSearch(value)
+    }
     return (
         <ThemeProvider theme={theme}>
             <TextField
+                autoComplete='off'
+                onChange={(event) => fetchSearch(event)}
                 variant="outlined"
                 label="Pesquisar Pedido"
                 sx={{

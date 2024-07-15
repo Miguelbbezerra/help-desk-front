@@ -2,28 +2,28 @@ import { Link } from 'react-router-dom';
 import '../../styles/cardPedido.css';
 import { useEffect, useState } from 'react';
 
-export default function CardPedido({ status, category, ticketId }) {
+export default function CardPedido({ status, category, ticketId, search }) {
     const [tickets, setTickets] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await fetchTicket(status, category, ticketId);
+                const data = await fetchTicket(status, category, ticketId, search);
                 setTickets(data);
             } catch (error) {
                 console.error('Erro ao buscar tickets:', error);
             }
         }
         fetchData();
-    }, [status, category, ticketId]);
+    }, [status, category, ticketId, search]);
 
-    async function fetchTicket(status, category, ticketId) {
+    async function fetchTicket(status, category, ticketId, search) {
         const requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:5000/ticket?${status}&${category}&${ticketId}`, requestOptions);
+        const response = await fetch(`http://localhost:5000/ticket?${status}&${category}&${ticketId}&${search}`, requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar os tickets');
         }

@@ -9,6 +9,7 @@ export default function Pedidos() {
     const [status, setStatus] = useState('');
     const [category, setCategory] = useState('');
     const [ticket, setTicket] = useState('');
+    const [search, setSearch] = useState('');
 
     // const [anchorEl, setAnchorEl] = useState(null);
     // const open = Boolean(anchorEl);
@@ -45,7 +46,7 @@ export default function Pedidos() {
                     <></>
                 )}
                 <Grid xs={12} sm={12} md={6} lg={7}>
-                    <InputPesquisa />
+                    <InputPesquisa setSearch={setSearch}/>
                 </Grid>
                 {/* DIVISOR */}
                 <Grid xs={12} sm={12} md={12} lg={12}>
@@ -107,7 +108,7 @@ export default function Pedidos() {
                             Limpar Filtros
                         </Button>
                     )}
-                    <CardPedido status={status} category={category} ticketId={ticket} />
+                    <CardPedido status={status} category={category} ticketId={ticket} search={search}/>
                 </Grid>
             </Grid>
         </>
