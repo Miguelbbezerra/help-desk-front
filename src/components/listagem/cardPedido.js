@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export default function CardPedido({ status, category, ticketId }) {
     const [tickets, setTickets] = useState([]);
- 
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -34,23 +34,31 @@ export default function CardPedido({ status, category, ticketId }) {
 
     return (
         <>
-            {tickets.map((ticket, index) => (
-                <div key={index} className='container'>
+            {Array.isArray(tickets) && tickets.length === 0 ? (
+                <div className='container'>
                     <div className='content'>
-                        <div className='left'>
-                            <h2>{ticket.title}</h2>
-                            <p>{ticket.body}</p>
-                        </div>
-                        <div className='right'>
-                            <div className='status-category'>
-                                <div style={{ fontSize: 12 }} className={`status-${ticket.status.status}`}>{ticket.status.status.replaceAll('-', ' ')}</div>
-                                <div className='category-selecionado' style={{ margin: '0 0 0 10px', cursor: 'default', fontSize: 12 }}>{ticket.category.category.replaceAll('-', ' ')}</div>
-                            </div>
-                            <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`} className='ver-mais'>Ver Mais</Link>
-                        </div>
+                       Nenhum Registro Encontrado
                     </div>
                 </div>
-            ))}
+            ) : (
+                tickets.map((ticket, index) => (
+                    <div key={index} className='container'>
+                        <div className='content'>
+                            <div className='left'>
+                                <h2>{ticket.title}</h2>
+                                <p>{ticket.body}</p>
+                            </div>
+                            <div className='right'>
+                                <div className='status-category'>
+                                    <div style={{ fontSize: 12 }} className={`status-${ticket.status.status}`}>{ticket.status.status.replaceAll('-', ' ')}</div>
+                                    <div className='category-selecionado' style={{ margin: '0 0 0 10px', cursor: 'default', fontSize: 12 }}>{ticket.category.category.replaceAll('-', ' ')}</div>
+                                </div>
+                                <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`} className='ver-mais'>Ver Mais</Link>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            )}
         </>
     );
 }

@@ -78,7 +78,7 @@ export default function ModalPedido({setTicket}) {
         body: '',
         categoryId: '',
         status: '',
-        userId: 2
+        userId: 1
     })
 
     function setInput(event, key) {

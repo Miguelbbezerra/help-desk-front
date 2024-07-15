@@ -2,13 +2,16 @@ import '../../styles/statusCategory.css'
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
+
     useImperativeHandle(ref, () => ({
-        clearFilters() {
-            setSelectedStatus(null)
-            setSelectedCategory(null)
-        }
+        clearFilters,
     }));
-    
+
+    const clearFilters = () => {
+        setSelectedStatus(null)
+        setSelectedCategory(null)
+    }
+
     // STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS STATUS
     const [statusData, setDataStatus] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState(null); // Estado para armazenar o botão selecionado
