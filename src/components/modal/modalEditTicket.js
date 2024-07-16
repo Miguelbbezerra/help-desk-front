@@ -197,7 +197,7 @@ export default function ModalEditTicket({ ticketId, open, close, setTicket }) {
             .then((result) => {
                 console.log(result);
 
-                setTicket(`id=${id}`)
+                setTicket(`${id}`)
                 close(); // Ensure modal closes after saving
             })
             .catch((error) => {

@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import '../../styles/pedidoChat.css'
 import { Button, CardMedia, Divider, Grid } from "@mui/material";
+import ModalEditTicket from "../modal/modalEditTicket";
+import ModalDelete from "../modal/modalDelete";
 
 export default function PedidoChat({ ticketId }) {
 
     const [ticket, setTicket] = useState(null);
+    const [ticketHolder, setTicketHolder] = useState(ticketId)
+    const [verificaTicket, setVerificaTicket] = useState(null)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedId, setSelectedId] = useState(null)
+    const [openEdit, setOpenEdit] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
 
     useEffect(() => {
-        async function fetchData(ticketId) {
+        async function fetchData(id) {
             try {
-                const data = await fetchTicket(ticketId);
+                const data = await fetchTicket(id);
                 setTicket(data);
                 setLoading(false);
             } catch (error) {
@@ -20,8 +27,13 @@ export default function PedidoChat({ ticketId }) {
                 setLoading(false);
             }
         }
-        fetchData(ticketId);
-    }, [ticketId]);
+        if(verificaTicket === null){
+            fetchData(ticketHolder);
+        } else{
+            window.location.href = '/pedidos';
+        }
+
+    }, [ticketHolder, verificaTicket]);
 
     async function fetchTicket(ticketId) {
         const requestOptions = {
@@ -47,12 +59,33 @@ export default function PedidoChat({ ticketId }) {
     }
 
     if (!ticket) {
-        return <p>Nenhum ticket encontrado.</p>;
+        return window.location.href = '/pedidos';
     }
+
+    //MODAIS
+    const handleEditOpen = (id) => {
+        setSelectedId(id)
+        setOpenEdit(true)
+    }
+    const handleEditClose = (id) => {
+        setSelectedId(null)
+        setOpenEdit(false)
+    }
+    ////////////
+    const handleDeleteOpen = (id) => {
+        setSelectedId(id)
+        setOpenDelete(true)
+    }
+    const handleDeleteClose = (id) => {
+        setSelectedId(null)
+        setOpenDelete(false)
+    }
+    //MODAIS
+
 
 
     return (<>
-        <Grid container  sx={{ height: '90%' }}>
+        <Grid container sx={{ height: '90%' }}>
             <div className="container-ticket" style={{ position: 'fixed', height: '85%' }}>
                 <Grid item sx={12} sm={12} md={12} lg={12}>
                     <h2>{ticket.user.fullName}</h2>
@@ -85,9 +118,15 @@ export default function PedidoChat({ ticketId }) {
                     <Divider sx={{ margin: '10px 0', backgroundColor: 'black' }} />
                 </Grid>
                 <Grid item sx={12} sm={12} md={12} lg={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button sx={{ width: '45%', border: '1px solid #1976D2' }}>Editar</Button>
-                    <Button sx={{ width: '45%', border: '1px solid #F44336', color: '#F44336' }}>Excluir</Button>
+                    <Button sx={{ margin: '0 5px' }} fullWidth variant="outlined" color="warning" onClick={() => handleEditOpen(ticket.id)}>Editar</Button>
+                    <Button sx={{ margin: '0 5px' }} fullWidth variant="outlined" color="error" onClick={() => handleDeleteOpen(ticket.id)}>Excluir</Button>
                 </Grid>
+                {selectedId !== null && (
+                    <>
+                        <ModalEditTicket open={openEdit} close={handleEditClose} ticketId={selectedId} setTicket={setTicketHolder} />
+                        <ModalDelete open={openDelete} close={handleDeleteClose} table='ticket' id={selectedId} setTicket={setVerificaTicket} />
+                    </>
+                )}
             </div>
         </Grid >
     </>
