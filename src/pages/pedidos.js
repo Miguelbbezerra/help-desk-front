@@ -24,12 +24,15 @@ export default function Pedidos() {
     const isSmallTop = useMediaQuery('(max-width: 899px)');
 
     const childRef = useRef()
+    const childRefInput = useRef()
 
     const handleClearFilters = () => {
         setStatus('');
         setCategory('');
         setTicket('');
+        setSearch('');
         childRef.current.clearFilters()
+        childRefInput.current.clearInput()
     };
 
     return (
@@ -46,7 +49,7 @@ export default function Pedidos() {
                     <></>
                 )}
                 <Grid xs={12} sm={12} md={6} lg={7}>
-                    <InputPesquisa setSearch={setSearch}/>
+                    <InputPesquisa setSearch={setSearch} ref={childRefInput}/>
                 </Grid>
                 {/* DIVISOR */}
                 <Grid xs={12} sm={12} md={12} lg={12}>
@@ -103,12 +106,12 @@ export default function Pedidos() {
                     <></>
                 )}
                 <Grid xs={12} sm={12} md={12} lg={9}>
-                    {(status || category || ticket) && (
+                    {(status || category || ticket || search) && (
                         <Button sx={{ float: 'right', margin: '10px' }} onClick={handleClearFilters} variant="contained" color="error">
                             Limpar Filtros
                         </Button>
                     )}
-                    <CardPedido status={status} category={category} ticketId={ticket} search={search}/>
+                    <CardPedido status={status} category={category} ticketId={ticket} search={search} setTicket={setTicket}/>
                 </Grid>
             </Grid>
         </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { TextField, InputAdornment, IconButton, ThemeProvider, createTheme } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -43,15 +43,27 @@ const theme = createTheme({
     },
 });
 
-export default function InputPesquisa({ setSearch }) {
+const InputPesquisa = forwardRef(({ setSearch }, ref) => {
+
+    useImperativeHandle(ref, () => ({
+        clearInput,
+    }));
+
+    const clearInput = () => {
+        let input = document.getElementById('clearInput')
+        return input.value = ""
+    }
+
 
     function fetchSearch(event) {
         const value = `search=${event.target.value}`
         setSearch(value)
     }
+
     return (
         <ThemeProvider theme={theme}>
             <TextField
+                id='clearInput'
                 autoComplete='off'
                 onChange={(event) => fetchSearch(event)}
                 variant="outlined"
@@ -80,4 +92,5 @@ export default function InputPesquisa({ setSearch }) {
             />
         </ThemeProvider>
     );
-}
+})
+export default InputPesquisa

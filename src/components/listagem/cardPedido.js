@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import ModalEditTicket from '../modal/modalEditTicket';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function CardPedido({ status, category, ticketId, search }) {
+export default function CardPedido({ status, category, ticketId, search, setTicket }) {
     const [tickets, setTickets] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [openEdit, setOpenEdit] = useState(false);
@@ -69,15 +71,18 @@ export default function CardPedido({ status, category, ticketId, search }) {
                                     <div style={{ fontSize: 12 }} className={`status-${ticket.status.status}`}>{ticket.status.status.replaceAll('-', ' ')}</div>
                                     <div className='category-selecionado' style={{ margin: '0 0 0 10px', cursor: 'default', fontSize: 12 }}>{ticket.category.category.replaceAll('-', ' ')}</div>
                                 </div>
-                                <IconButton type='button' color='primary' onClick={() => handleOpen(ticket.id)}><EditIcon /></IconButton>
-                                <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`} className='ver-mais'>Ver Mais</Link>
+                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginTop: '10px'}}>
+                                    <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`}><IconButton type='button' color='primary'><VisibilityIcon sx={{margin: '0'}} /></IconButton></Link>
+                                    <IconButton type='button' color='warning' onClick={() => handleOpen(ticket.id)}><EditIcon /></IconButton>
+                                    <IconButton type='button' color='error' onClick={() => handleOpen(ticket.id)}><DeleteIcon /></IconButton>
+                                </div>
                             </div>
                         </div>
                     </div>
                 ))
             )}
             {selectedId !== null && (
-                <ModalEditTicket open={openEdit} close={handleClose} ticketId={selectedId}/>
+                <ModalEditTicket open={openEdit} close={handleClose} ticketId={selectedId} setTicket={setTicket} />
             )}
         </>
     );

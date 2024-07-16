@@ -1,4 +1,21 @@
-import { Backdrop, Box, Button, createTheme, Divider, Fade, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
+import {
+    Backdrop,
+    Box,
+    Button,
+    createTheme,
+    Divider,
+    Fade,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Modal,
+    Select,
+    Snackbar,
+    TextField,
+    ThemeProvider,
+    Typography
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
 const style = {
@@ -7,8 +24,8 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80%',
-    height: '50%',
-    border: '2px solid #000',
+    height: 'auto',
+    border: '2px solid #ed6c02',
     boxShadow: 24,
     p: 4,
     backgroundColor: '#222222',
@@ -60,7 +77,7 @@ const theme = createTheme({
     },
 });
 
-export default function ModalEditTicket({ ticketId, open, close }) {
+export default function ModalEditTicket({ ticketId, open, close, setTicket }) {
     const [status, setStatusData] = useState([]);
     const [categories, setCategoriesData] = useState([]);
 
@@ -78,12 +95,13 @@ export default function ModalEditTicket({ ticketId, open, close }) {
 
     function setInput(event, key) {
         const value = event.target.value;
-        const newFormData = Object.assign({}, formData, { [key]: value });
+        const newFormData = { ...formData, [key]: value };
         setFormData(newFormData);
     }
 
     useEffect(() => {
         if (open) {
+            setTicket(``)
             async function fetchData() {
                 try {
                     const ticketData = await fetchTicket(ticketId);
@@ -108,8 +126,7 @@ export default function ModalEditTicket({ ticketId, open, close }) {
             }
             fetchData();
         }
-    }, [open, ticketId]);
-
+    }, [open, ticketId, setTicket]);
 
     async function fetchTicket(id) {
         const requestOptions = {
@@ -179,7 +196,8 @@ export default function ModalEditTicket({ ticketId, open, close }) {
             })
             .then((result) => {
                 console.log(result);
-                // setTicket(`id=${result.id}`);
+
+                setTicket(`id=${id}`)
                 close(); // Ensure modal closes after saving
             })
             .catch((error) => {
@@ -188,7 +206,6 @@ export default function ModalEditTicket({ ticketId, open, close }) {
                 setSnackbarOpen(true);
             });
     }
-
 
     return (
         <div>
@@ -209,28 +226,28 @@ export default function ModalEditTicket({ ticketId, open, close }) {
                     <Box sx={style}>
                         <form autoComplete='off'>
                             <Grid container spacing={2}>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
-                                    <Typography id="transition-modal-title" variant="h6" component="h2">
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    <Typography  id="transition-modal-title" variant="h6" component="h2">
                                         Editar Pedido
                                     </Typography>
                                 </Grid>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Divider style={{ margin: '5px 0' }} />
                                 </Grid>
                                 <ThemeProvider theme={theme}>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <TextField type='text' variant='standard' label='Título'
                                             onChange={(event) => setInput(event, 'title')} value={formData.title}
                                             sx={{ width: '100%' }}
                                         />
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <TextField type='text' variant='standard' label='Descrição'
                                             onChange={(event) => setInput(event, 'body')} value={formData.body}
                                             sx={{ width: '100%' }}
                                         />
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <FormControl variant="standard" sx={{ width: '100%' }}>
                                             <InputLabel id="demo-simple-select-standard-label">Categoria</InputLabel>
                                             <Select
@@ -246,7 +263,7 @@ export default function ModalEditTicket({ ticketId, open, close }) {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <FormControl variant="standard" sx={{ width: '100%' }}>
                                             <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
                                             <Select
@@ -264,11 +281,11 @@ export default function ModalEditTicket({ ticketId, open, close }) {
                                     </Grid>
                                 </ThemeProvider>
 
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Divider style={{ margin: '5px 0' }} />
                                 </Grid>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
-                                    <Button variant='outlined' type='button' onClick={storeTicket(ticketId)}>Enviar</Button>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
+                                    <Button variant='outlined' type='button' color="warning" onClick={() => storeTicket(ticketId)}>Enviar</Button>
                                 </Grid>
                             </Grid>
                         </form>
