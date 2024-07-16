@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const drawerWidth = 240;
 
@@ -124,9 +125,14 @@ export default function PersistentDrawerLeft({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {routeName}
-          </Typography>
+          <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+            <Typography variant="h6" noWrap component="div">
+              {routeName}
+            </Typography>
+            <div>
+              <NotificationsIcon />
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
