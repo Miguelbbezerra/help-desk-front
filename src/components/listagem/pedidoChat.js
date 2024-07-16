@@ -29,7 +29,7 @@ export default function PedidoChat({ ticketId }) {
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:5000/ticket/?id=${ticketId}`, requestOptions);
+        const response = await fetch(`http://localhost:5000/ticket/?active=1&id=${ticketId}`, requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar o ticket');
         }

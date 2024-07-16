@@ -6,11 +6,13 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModalDelete from '../modal/modalDelete';
 
 export default function CardPedido({ status, category, ticketId, search, setTicket }) {
     const [tickets, setTickets] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [openEdit, setOpenEdit] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -30,7 +32,7 @@ export default function CardPedido({ status, category, ticketId, search, setTick
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:5000/ticket?${status}&${category}&${ticketId}&${search}`, requestOptions);
+        const response = await fetch(`http://localhost:5000/ticket/?${status}&${category}&${ticketId}&${search}&active=1`, requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar os tickets');
         }
@@ -47,6 +49,15 @@ export default function CardPedido({ status, category, ticketId, search, setTick
     const handleClose = () => {
         setSelectedId(null);
         setOpenEdit(false);
+    }
+
+    const handleOpenDelete = (id) => {
+        setSelectedId(id);
+        setOpenDelete(true);
+    }
+    const handleCloseDelete = () => {
+        setSelectedId(null);
+        setOpenDelete(false);
     }
     // modais
 
@@ -71,10 +82,10 @@ export default function CardPedido({ status, category, ticketId, search, setTick
                                     <div style={{ fontSize: 12 }} className={`status-${ticket.status.status}`}>{ticket.status.status.replaceAll('-', ' ')}</div>
                                     <div className='category-selecionado' style={{ margin: '0 0 0 10px', cursor: 'default', fontSize: 12 }}>{ticket.category.category.replaceAll('-', ' ')}</div>
                                 </div>
-                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginTop: '10px'}}>
-                                    <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`}><IconButton type='button' color='primary'><VisibilityIcon sx={{margin: '0'}} /></IconButton></Link>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginTop: '10px' }}>
+                                    <Link to={`/chat/${ticket.id}?userId=${ticket.userId}`}><IconButton type='button' color='primary'><VisibilityIcon sx={{ margin: '0' }} /></IconButton></Link>
                                     <IconButton type='button' color='warning' onClick={() => handleOpen(ticket.id)}><EditIcon /></IconButton>
-                                    <IconButton type='button' color='error' onClick={() => handleOpen(ticket.id)}><DeleteIcon /></IconButton>
+                                    <IconButton type='button' color='error' onClick={() => handleOpenDelete(ticket.id)}><DeleteIcon /></IconButton>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +93,10 @@ export default function CardPedido({ status, category, ticketId, search, setTick
                 ))
             )}
             {selectedId !== null && (
-                <ModalEditTicket open={openEdit} close={handleClose} ticketId={selectedId} setTicket={setTicket} />
+                <>
+                    <ModalEditTicket open={openEdit} close={handleClose} ticketId={selectedId} setTicket={setTicket} />
+                    <ModalDelete open={openDelete} close={handleCloseDelete} table='ticket' id={selectedId} setTicket={setTicket}/>
+                </>
             )}
         </>
     );

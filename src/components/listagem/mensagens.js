@@ -52,7 +52,7 @@ export function Mensagens({ ticketId}) {
         redirect: 'follow'
       };
 
-      const response = await fetch(`http://localhost:5000/chat/?ticketId=${id}`, requestOptions);
+      const response = await fetch(`http://localhost:5000/chat/?active=1&ticketId=${id}`, requestOptions);
       if (!response.ok) {
         throw new Error('Falha em listar as mensagens');
       }
