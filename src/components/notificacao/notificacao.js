@@ -2,10 +2,13 @@ import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
 
 const socket = io('http://localhost:5000')
 
 const Notificacao = () => {
+
+    const { userId } = useParams()
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -41,19 +44,7 @@ const Notificacao = () => {
             >
                 <NotificationsIcon />
             </IconButton>
-            {notifications.length > 0 && (
-                <span style={{
-                    position: 'absolute',
-                    top: 5,
-                    left: 5,
-                    backgroundColor: 'red',
-                    color: 'white',
-                    borderRadius: '50%',
-                    padding: ' 2px 5px',
-                    width: '10px',
-                    height: '10px',
-                }}></span>
-            )}
+
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -66,11 +57,32 @@ const Notificacao = () => {
             >
                 {notifications.length > 0 ? (
                     notifications.map((notification, index) => (
-                        <MenuItem sx={{ width: '100%' }} key={index}>
-                            {notification.type === 'new_chat_message' && `New chat message: ${notification.data.message}`}
-                            {notification.type === 'new_ticket' && `New ticket: ${notification.data.title}`}
-                            {notification.type === 'update_ticket' && `Updated ticket: ${notification.data.title}`}
-                        </MenuItem>
+                        notification.data.userId !== userId && (
+                            <span style={{
+                                position: 'absolute',
+                                top: 5,
+                                left: 5,
+                                backgroundColor: 'red',
+                                color: 'white',
+                                borderRadius: '50%',
+                                padding: ' 2px 5px',
+                                width: '10px',
+                                height: '10px',
+                            }}></span>
+                        )
+                            (notification.data.userId !== userId ? (
+                                <Link to={`/chat/${notification.data.ticketId}?userId=2`}>
+                                    <MenuItem sx={{ width: '100%' }} key={index}>
+
+                                        {notification.type === 'new_chat_message' && `New chat message: ${notification.data.message}`}
+                                        {notification.type === 'new_ticket' && `New ticket: ${notification.data.title}`}
+                                        {notification.type === 'update_ticket' && `Updated ticket: ${notification.data.title}`}
+                                    </MenuItem>
+                                </Link>
+                            ) : (
+                                <MenuItem >Nenhuma Notificação</MenuItem>
+                            ))
+
                     ))
                 ) : (
                     <MenuItem >Nenhuma Notificação</MenuItem>
