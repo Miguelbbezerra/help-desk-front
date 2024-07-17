@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import Notificacao from '../components/notificacao/notificacao';
 
 const drawerWidth = 240;
 
@@ -125,12 +125,17 @@ export default function PersistentDrawerLeft({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
             <Typography variant="h6" noWrap component="div">
               {routeName}
             </Typography>
-            <div>
-              <NotificationsIcon />
+            <div style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+              display: 'inline-block'
+            }}>
+              <Notificacao />
             </div>
           </div>
         </Toolbar>
@@ -158,7 +163,7 @@ export default function PersistentDrawerLeft({ children }) {
         {/* <Divider /> */}
         <List style={{ backgroundColor: '#222222', height: '100%', color: '#fff', borderRight: 0 }}>
           {items.map((item, index) => (
-            <Link to={item.route} style={{ textDecoration: 'none', color: '#fff' }}>
+            <Link key={index} to={item.route} style={{ textDecoration: 'none', color: '#fff' }}>
               <ListItem key={item.text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon sx={{ color: '#fff' }}>
@@ -175,6 +180,6 @@ export default function PersistentDrawerLeft({ children }) {
         <DrawerHeader />
         {children}
       </Main>
-    </Box>
+    </Box >
   );
 }

@@ -38,25 +38,25 @@ export default function Pedidos() {
     return (
         <>
             <Grid container sx={{ display: "flex", justifyContent: 'space-between' }}>
-                <Grid xs={12} sm={12} md={5} lg={4}>
+                <Grid item xs={12} sm={12} md={5} lg={4}>
                     <ModalPedido setTicket={setTicket} />
                 </Grid>
                 {isSmallTop ? (
-                    <Grid xs={12} sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Divider sx={{ margin: '10px 0', backgroundColor: '#323232', height: '2px' }} />
                     </Grid>
                 ) : (
                     <></>
                 )}
-                <Grid xs={12} sm={12} md={6} lg={7}>
+                <Grid item xs={12} sm={12} md={6} lg={7}>
                     <InputPesquisa setSearch={setSearch} ref={childRefInput}/>
                 </Grid>
                 {/* DIVISOR */}
-                <Grid xs={12} sm={12} md={12} lg={12}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
                     <Divider sx={{ margin: '10px 0', backgroundColor: '#323232', height: '2px' }} />
                 </Grid>
                 {/* DIVISOR */}
-                <Grid xs={12} sm={12} md={12} lg={3}>
+                <Grid item xs={12} sm={12} md={12} lg={3}>
                     {/* {isSmallFiltro ? (
                         <>
                             <Button
@@ -99,13 +99,13 @@ export default function Pedidos() {
                     <StatusCategory ref={childRef} setStatus={setStatus} setCategory={setCategory} />
                 </Grid>
                 {isSmallFiltro ? (
-                    <Grid xs={12} sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Divider sx={{ margin: '10px 0', backgroundColor: '#323232', height: '2px' }} />
                     </Grid>
                 ) : (
                     <></>
                 )}
-                <Grid xs={12} sm={12} md={12} lg={9}>
+                <Grid item xs={12} sm={12} md={12} lg={9}>
                     {(status || category || ticket || search) && (
                         <Button sx={{ float: 'right', margin: '10px' }} onClick={handleClearFilters} variant="contained" color="error">
                             Limpar Filtros

@@ -68,7 +68,7 @@ const theme = createTheme({
 });
 
 
-export default function ModalPedido({setTicket}) {
+export default function ModalPedido({ setTicket }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -78,7 +78,7 @@ export default function ModalPedido({setTicket}) {
         body: '',
         categoryId: '',
         status: '',
-        userId: 1
+        userId: 2
     })
 
     function setInput(event, key) {
@@ -160,9 +160,16 @@ export default function ModalPedido({setTicket}) {
             })
             .then((result) => {
                 console.log(result);
+                setFormData({
+                    title: '',
+                    body: '',
+                    categoryId: '',
+                    status: '',
+                    userId: 2
+                })
                 setTicket(`id=${result.id}`)
                 setOpen(false)
-                
+
             })
             .catch((error) => {
                 console.error(error);
@@ -195,33 +202,33 @@ export default function ModalPedido({setTicket}) {
                     <Box sx={style}>
                         <form autoComplete='off' onSubmit={(event) => event.preventDefault()}>
                             <Grid container spacing={2}>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Typography id="transition-modal-title" variant="h6" component="h2">
                                         Lançar Novo Pedido
                                     </Typography>
                                 </Grid>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Divider style={{ margin: '5px 0' }} />
                                 </Grid>
-                                {/* <Grid item sx={12} sm={12} md={12} lg={12}>
+                                {/* <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <Typography id="transition-modal-description">
                                     Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                                 </Typography>
                             </Grid> */}
                                 <ThemeProvider theme={theme}>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <TextField type='text' variant='standard' label='Título'
                                             onChange={(event) => setInput(event, 'title')} value={formData.title}
                                             sx={{ width: '100%' }}
                                         />
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <TextField type='text' variant='standard' label='Descrição'
                                             onChange={(event) => setInput(event, 'body')} value={formData.body}
                                             sx={{ width: '100%' }}
                                         />
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <FormControl variant="standard" sx={{ width: '100%' }}>
                                             <InputLabel id="demo-simple-select-standard-label">Categoria</InputLabel>
                                             <Select
@@ -231,13 +238,13 @@ export default function ModalPedido({setTicket}) {
                                                 onChange={(event) => setInput(event, 'categoryId')} value={formData.categoryId}
                                                 style={{ textTransform: 'uppercase' }}
                                             >
-                                                {categories.map((category) => (
-                                                    <MenuItem value={category.id} style={{ textTransform: 'uppercase' }}>{category.category.replaceAll('-', ' ')}</MenuItem>
+                                                {categories.map((category, index) => (
+                                                    <MenuItem key={index} value={category.id} style={{ textTransform: 'uppercase' }}>{category.category.replaceAll('-', ' ')}</MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item sx={12} sm={12} md={6} lg={6}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
                                         <FormControl variant="standard" sx={{ width: '100%' }}>
                                             <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
                                             <Select
@@ -248,18 +255,18 @@ export default function ModalPedido({setTicket}) {
                                                 onChange={(event) => setInput(event, 'status')} value={formData.status}
                                                 style={{ textTransform: 'uppercase' }}
                                             >
-                                                {status.map((statusItem) => (
-                                                    <MenuItem value={statusItem.id} style={{ textTransform: 'uppercase' }}>{statusItem.status.replaceAll('-', ' ')}</MenuItem>
+                                                {status.map((statusItem, index) => (
+                                                    <MenuItem key={index} value={statusItem.id} style={{ textTransform: 'uppercase' }}>{statusItem.status.replaceAll('-', ' ')}</MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
                                     </Grid>
                                 </ThemeProvider>
 
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Divider style={{ margin: '5px 0' }} />
                                 </Grid>
-                                <Grid item sx={12} sm={12} md={12} lg={12}>
+                                <Grid item xs={12} sm={12} md={12} lg={12}>
                                     <Button variant='outlined' type='submit' onClick={() => storeTicket()}>Enviar</Button>
                                 </Grid>
                             </Grid>

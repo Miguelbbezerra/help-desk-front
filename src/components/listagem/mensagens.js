@@ -64,10 +64,6 @@ export function Mensagens({ ticketId}) {
     }
   };
 
-  const handleDeleteMessage = async (messageId) => {
-    // Lógica para deletar a mensagem (implemente conforme necessário)
-  };
-
   return (
     <Grid container style={{ width: '100%' }}>
       {!mensagens ? (
@@ -84,7 +80,7 @@ export function Mensagens({ ticketId}) {
                     <h4 style={{ margin: '0', color: '#fff' }}>{mensagem?.userId}</h4>
                     <div>
                       <IconButton><EditIcon color="primary" sx={{ fontSize: 20 }} /></IconButton>
-                      <IconButton onClick={() => handleDeleteMessage(mensagem.id)}><DeleteIcon color="error" sx={{ fontSize: 20 }} /></IconButton>
+                      <IconButton ><DeleteIcon color="error" sx={{ fontSize: 20 }} /></IconButton>
                     </div>
                   </div>
                   <p style={{ wordWrap: 'break-word' }}>
