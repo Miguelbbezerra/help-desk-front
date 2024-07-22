@@ -19,6 +19,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Notificacao from '../components/notificacao/notificacao';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;
 
@@ -75,6 +76,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const items = [
   { text: 'Home', icon: <HomeIcon />, route: '/home' },
   { text: 'Pedidos', icon: <HelpOutlineIcon />, route: '/pedidos' },
+  { text: 'Configurações', icon: <SettingsIcon />, route: '/configuracoes' },
   // { text: 'Inbox', icon: <InboxIcon />, route: '' },
 ];
 
@@ -102,6 +104,8 @@ export default function PersistentDrawerLeft({ children }) {
         return 'Pedidos';
       case '/chat/':
         return 'Chat';
+      case '/configuracoes':
+        return 'Configurações';
       case `/chat/${id}`:
         return 'Chat';
       default:

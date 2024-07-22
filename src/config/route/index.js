@@ -3,6 +3,7 @@ import Root from "../root/root";
 import Home from "../../pages/home";
 import Pedidos from "../../pages/pedidos";
 import Chat from "../../pages/chat";
+import Configuracoes from "../../pages/configuracoes";
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <>
@@ -11,6 +12,7 @@ export const router = createBrowserRouter(createRoutesFromElements(
             <Route path="/home" element={<Home />}></Route>
             <Route path="/pedidos" element={<Pedidos />}></Route>
             <Route path="/chat/:id" element={<Chat />}></Route>
+            <Route path="/configuracoes" element={<Configuracoes />}></Route>
         </Route>
     </>
 ))
