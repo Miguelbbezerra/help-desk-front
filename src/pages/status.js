@@ -4,12 +4,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCallback, useEffect, useState } from "react";
 import ModalDelete from "../components/modal/modalDelete";
+import ModalEdit from "../components/modal/modalEdit";
 
 const Status = () => {
 
     const [status, setStatus] = useState([])
     const [selectedId, setSelectedId] = useState(null)
-    // const [openEdit, setOpenEdit] = useState(false)
+    const [openEdit, setOpenEdit] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
 
     const fetchStatus = useCallback(async () => {
@@ -38,25 +39,25 @@ const Status = () => {
         } catch (error) {
             console.error("Erro ao executar o fetchData", error)
         }
-    }, [fetchStatus])
+    }, [fetchStatus, setStatus])
 
     useEffect(() => {
         fetchData()
     }, [fetchData])
 
-    // const handleOpenEdit = (id) => {
-    //     setSelectedId(id)
-    //     setOpenEdit(true)
-    // }
+    const handleOpenEdit = (id) => {
+        setSelectedId(id)
+        setOpenEdit(true)
+    }
     const handleOpenDelete = (id) => {
         setSelectedId(id)
         setOpenDelete(true)
     }
 
-    // const handleCloseEdit = (id) => {
-    //     setSelectedId(null)
-    //     setOpenEdit(false)
-    // }
+    const handleCloseEdit = (id) => {
+        setSelectedId(null)
+        setOpenEdit(false)
+    }
     const handleCloseDelete = (id) => {
         setSelectedId(null)
         setOpenDelete(false)
@@ -89,7 +90,7 @@ const Status = () => {
                                             {item.status.replaceAll('-', ' ')}
                                         </TableCell>
                                         <TableCell sx={{ borderBottom: '1px solid black', color: '#cccccc' }} align="right">
-                                            <IconButton color="warning"><EditIcon /></IconButton>
+                                            <IconButton color="warning" onClick={() => handleOpenEdit(item.id)}><EditIcon /></IconButton>
                                             <IconButton color="error" onClick={() => handleOpenDelete(item.id)}><DeleteIcon /></IconButton>
                                         </TableCell>
                                     </TableRow>
@@ -98,7 +99,10 @@ const Status = () => {
                         </Table>
                     </TableContainer>
                     {selectedId !== null && (
-                        <ModalDelete open={openDelete} close={handleCloseDelete} table="status" id={selectedId} setTicket={fetchData} />
+                        <>
+                            <ModalDelete open={openDelete} close={handleCloseDelete} table="status" id={selectedId} setTicket={fetchData} />
+                            <ModalEdit open={openEdit} close={handleCloseEdit} table='status' id={selectedId} setTable={fetchData}/>
+                        </>
                     )}
                 </Grid>
             </Grid>
