@@ -104,10 +104,16 @@ export default function PersistentDrawerLeft({ children }) {
         return 'Pedidos';
       case '/chat/':
         return 'Chat';
-      case '/configuracoes':
-        return 'Configurações';
       case `/chat/${id}`:
         return 'Chat';
+      case '/configuracoes':
+        return 'Configurações';
+      case '/configuracoes/usuarios':
+        return 'Usuários';
+      case '/configuracoes/status':
+        return 'Status';
+      case '/configuracoes/categorias':
+        return 'Categorias';
       default:
         return 'Unknown';
     }

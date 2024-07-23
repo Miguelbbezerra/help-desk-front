@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { io } from "socket.io-client";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton, Menu, MenuItem } from "@mui/material";
@@ -24,7 +24,7 @@ const Notificacao = () => {
 
     const [notifications, setNotifications] = useState([]);
 
-    const fetchNotifications = async () => {
+    const fetchNotifications = useCallback(async () => {
         try {
             console.log("userId " + userIdFromQuery);
             const response = await fetch('http://localhost:5000/notification?viewed=0');
@@ -39,12 +39,19 @@ const Notificacao = () => {
         } catch (error) {
             console.error('Error fetching notifications:', error);
         }
-    };
+    }, [userIdFromQuery]); // Adiciona userIdFromQuery como dependência do useCallback
 
     // Fetch notifications from the API
     useEffect(() => {
-        fetchNotifications();
-    }, [userIdFromQuery]); // Adiciona userIdFromQuery como dependência do useEffect
+        async function fetchData() {
+            try {
+                fetchNotifications();
+            } catch (error) {
+                console.error("Erro no fetch de dados", error)
+            }
+        }
+        fetchData();
+    }, [fetchNotifications]); // Adiciona fetchNotifications como dependência do useEffect
 
     // Handle real-time notifications via socket.io
     useEffect(() => {
@@ -86,7 +93,7 @@ const Notificacao = () => {
         if (id) {
             markNotificationAsViewed(id);
         }
-    }, [id, notifications]);
+    }, [id, notifications, fetchNotifications]);
 
     return (
         <>

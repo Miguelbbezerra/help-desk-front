@@ -1,4 +1,3 @@
-import "chartjs-plugin-datalabels";
 import '../styles/home.css'
 import { Divider, Grid } from "@mui/material";
 
