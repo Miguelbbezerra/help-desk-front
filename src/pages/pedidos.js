@@ -11,15 +11,6 @@ export default function Pedidos() {
     const [ticket, setTicket] = useState('');
     const [search, setSearch] = useState('');
 
-    // const [anchorEl, setAnchorEl] = useState(null);
-    // const open = Boolean(anchorEl);
-    // const handleClick = (event) => {
-    //     setAnchorEl(event.currentTarget);
-    // };
-    // const handleClose = () => {
-    //     setAnchorEl(null);
-    // };
-
     const isSmallFiltro = useMediaQuery('(max-width: 1199px)');
     const isSmallTop = useMediaQuery('(max-width: 899px)');
 
@@ -57,45 +48,6 @@ export default function Pedidos() {
                 </Grid>
                 {/* DIVISOR */}
                 <Grid item xs={12} sm={12} md={12} lg={3}>
-                    {/* {isSmallFiltro ? (
-                        <>
-                            <Button
-                                id="demo-positioned-button"
-                                aria-controls={open ? 'demo-positioned-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick}
-                            >
-                                Filtros
-                            </Button>
-                            <Menu
-                                id="demo-positioned-menu"
-                                aria-labelledby="demo-positioned-button"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'center',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'center',
-                                }}
-                                sx={{ // Adicionei sx para estilizar o Menu
-                                    '& .MuiPaper-root': {
-                                        backgroundColor: '#161616',
-                                        width: '100%' // Mesma cor do fundo da div interna
-                                    }
-                                }}
-                            >
-                                <StatusCategory ref={childRef} setStatus={setStatus} setCategory={setCategory} />
-                            </Menu>
-
-                        </>
-                    ) : (
-                        <StatusCategory ref={childRef} setStatus={setStatus} setCategory={setCategory} />
-                    )} */}
                     <StatusCategory ref={childRef} setStatus={setStatus} setCategory={setCategory} />
                 </Grid>
                 {isSmallFiltro ? (
