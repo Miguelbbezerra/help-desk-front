@@ -1,11 +1,5 @@
 import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material"
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from "react"
-import { DateField } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 
 
 const style = {
@@ -75,7 +69,7 @@ const ModalStoreUser = ({ open, close, setTable }) => {
     const [data, setData] = useState({
         email: "",
         phone: "",
-        dateBirth: dayjs("YYYY-MM-DD"), // Ensure this starts as a dayjs object
+        dateBirth: "",
         password: "",
         fullName: "",
         adress: "",
@@ -89,28 +83,52 @@ const ModalStoreUser = ({ open, close, setTable }) => {
 
     const storeTable = async () => {
         try {
+            // Formatar a data para o padrão YYYY-MM-DD
+            if (data.dateBirth) {
+                const date = new Date(data.dateBirth);
+                const formattedDate = date.toISOString().split('T')[0]; // Pega a data no formato YYYY-MM-DD
+                data.dateBirth = formattedDate; // Atualiza o campo dateBirth no objeto data
+            }
+
+            // Preparar os cabeçalhos e o corpo da solicitação
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-            const raw = JSON.stringify(data);
+            const raw = JSON.stringify(data); // Converte o objeto data atualizado para JSON
+
+            // Enviar a solicitação POST
             const response = await fetch(`http://localhost:5000/user`, {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             });
+
+            // Verificar se a resposta foi bem-sucedida
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || `Erro ao salvar usuario`);
+                throw new Error(errorData.message || `Erro ao salvar usuário`);
             }
+
+            // Processar a resposta JSON
             const result = await response.json();
+            setData({
+                email: "",
+                phone: "",
+                dateBirth: "",
+                password: "",
+                fullName: "",
+                adress: "",
+                level: "comum"
+            })
             setTable(`id=${result.id}`);
             close();
         } catch (error) {
             setSnackbarMessage(error.message);
             setSnackbarOpen(true);
-            console.error(`Erro ao salvar a user`, error);
+            console.error(`Erro ao salvar o usuário`, error);
         }
     }
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -138,46 +156,39 @@ const ModalStoreUser = ({ open, close, setTable }) => {
                                 <Grid item xs={12} sm={6}>
                                     <TextField label='Nome Completo'
                                         onChange={(event) => setInput(event, 'fullName')} value={data.fullName}
-                                        sx={{ width: '100%' }}
+                                        fullWidth
                                         variant="standard"
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField label='Email'
                                         onChange={(event) => setInput(event, 'email')} value={data.email}
-                                        sx={{ width: '100%' }}
+                                        fullWidth
                                         variant="standard"
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField label='Telefone'
                                         onChange={(event) => setInput(event, 'phone')} value={data.phone}
-                                        sx={{ width: '100%' }}
+                                        fullWidth
                                         variant="standard"
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DateField
-                                        variant="standard"
-                                            label="Data de Nascimento"
-                                            value={data.dateBirth}
-                                            onChange={(newValue) => setInput(newValue, 'dateBirth')}
-                                            renderInput={(params) => <TextField {...params} variant="standard" />}
-                                        />
-                                    </LocalizationProvider>
+                                    <TextField label="Data de Nascimento" type="date" variant="standard"
+                                        fullWidth value={data.dateBirth} onChange={(event) => setInput(event, 'dateBirth')} />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField label='Endereço'
                                         onChange={(event) => setInput(event, 'adress')} value={data.adress}
-                                        sx={{ width: '100%' }}
+                                        fullWidth
                                         variant="standard"
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField label='Senha'
                                         onChange={(event) => setInput(event, 'password')} value={data.password}
-                                        sx={{ width: '100%' }}
+                                        fullWidth
                                         variant="standard"
                                     />
                                 </Grid>

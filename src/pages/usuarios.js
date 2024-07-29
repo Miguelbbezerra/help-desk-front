@@ -4,9 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCallback, useEffect, useState } from "react";
 import ModalDelete from "../components/modal/modalDelete";
-import ModalEdit from "../components/modal/modalEdit";
 import { format, parseISO } from "date-fns";
 import ModalStoreUser from "../components/modal/modalStoreUser";
+import ModalEditUser from "../components/modal/modalEditUser";
 
 const Usuarios = () => {
 
@@ -131,7 +131,7 @@ const Usuarios = () => {
                     {selectedId !== null && (
                         <>
                             <ModalDelete open={openDelete} close={handleCloseDelete} table="user" id={selectedId} setTicket={fetchData} />
-                            {/* <ModalEdit open={openEdit} close={handleCloseEdit} table='user' id={selectedId} setTable={fetchData} /> */}
+                            <ModalEditUser open={openEdit} close={handleCloseEdit} id={selectedId} setTable={fetchData} />
                         </>
                     )}
                 </Grid>

@@ -35,7 +35,7 @@ export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:5000/status", requestOptions);
+        const response = await fetch("http://localhost:5000/status?active=1", requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar os status');
         }
@@ -79,7 +79,7 @@ export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:5000/category", requestOptions);
+        const response = await fetch("http://localhost:5000/category?active=1", requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar os category');
         }

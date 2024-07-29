@@ -1,6 +1,5 @@
-import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material"
-import { useCallback, useEffect, useState } from "react"
-
+import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 
 const style = {
     position: 'absolute',
@@ -61,129 +60,191 @@ const theme = createTheme({
     },
 });
 
-
 const ModalEditUser = ({ id, open, close, setTable }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const handleSnackbarClose = () => setSnackbarOpen(false);
 
-    const [data, setData] = useState([
-
-    ])
+    const [data, setData] = useState({
+        email: "",
+        phone: "",
+        dateBirth: "",
+        fullName: "",
+        adress: "",
+        level: "comum"
+    });
 
     const fetchTable = useCallback(async (id) => {
         try {
             const response = await fetch(`http://localhost:5000/user?id=${id}`, {
                 method: 'GET',
                 redirect: 'follow'
-            })
-            const data = await response.json()
-            return data
+            });
+            const data = await response.json();
+            return data;
         } catch (error) {
             setSnackbarMessage(error.message);
-            console.error("Erro ao buscar a table", error)
+            console.error("Erro ao buscar a tabela", error);
         }
-    }, [])
+    }, []);
 
     const fetchData = useCallback(async () => {
         try {
-            const result = await fetchTable(id)
-            setData(result[0])
-
+            const result = await fetchTable(id);
+            if (result.length > 0) {
+                setData({
+                    email: result[0].email,
+                    phone: result[0].phone,
+                    dateBirth: result[0].dateBirth,
+                    fullName: result[0].fullName,
+                    adress: result[0].adress,
+                    level: result[0].level // Ajuste o nível conforme o retorno do backend
+                });
+            }
         } catch (error) {
             setSnackbarMessage(error.message);
-            console.error("Erro ao realizar o FetchData", error)
+            console.error("Erro ao realizar o FetchData", error);
         }
-    }, [fetchTable, id])
+    }, [fetchTable, id]);
 
     useEffect(() => {
-        if (open) {
-            fetchData()
+        if (open && id) {
+            fetchData();
         }
-    }, [open, fetchData])
+    }, [open, fetchData, id]);
 
-    function setInput(event) {
-        const value = event.target.value
-        setData(value)
+    function setInput(event, key) {
+        const value = event.target.value;
+        setData((prevData) => ({ ...prevData, [key]: value }));
     }
 
-    const storeTable = async (id) => {
+    const storeTable = async () => {
         try {
+            if (!id) {
+                throw new Error('ID não fornecido');
+            }
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-            var newData
-            if (table === 'status') {
-                newData = {
-                    status: data
-                };
-            } else {
-                newData = {
-                    category: data
-                };
-            }
-            var raw = JSON.stringify(newData);
+            var raw = JSON.stringify(data);
             const response = await fetch(`http://localhost:5000/user/${id}`, {
                 method: 'PUT',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
-            })
-            console.log(response)
-            setTable()
-            close()
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Erro ao atualizar o usuário`);
+            }
+            setTable(); // Atualiza a tabela
+            close(); // Fecha o modal
         } catch (error) {
             setSnackbarMessage(error.message);
-            console.error(`Erro ao salvar a user`, error)
+            console.error(`Erro ao salvar o usuário`, error);
         }
-    }
+    };
 
     return (
         <>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={open}
-                onClose={close}
-                closeAfterTransition
-                slots={{ backdrop: Backdrop }}
-                slotProps={{
-                    backdrop: {
-                        timeout: 500,
-                    },
-                }}
-            >
-                <Fade in={open}>
-                    <Box sx={style}>
-                        <form autoComplete='off'>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    <Typography id="transition-modal-title" variant="h6" component="h2">
-                                        Editar Usuário
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    <Divider style={{ margin: '5px 0' }} />
-                                </Grid>
-                                <ThemeProvider theme={theme}>
-                                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <TextField type='text' variant='standard' label='Título'
-                                            onChange={(event) => setInput(event)} value={data.category}
-                                            sx={{ width: '100%' }}
+            <ThemeProvider theme={theme}>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    open={open}
+                    onClose={close}
+                    closeAfterTransition
+                    slots={{ backdrop: Backdrop }}
+                    slotProps={{
+                        backdrop: {
+                            timeout: 500,
+                        },
+                    }}
+                >
+                    <Fade in={open}>
+                        <Box sx={style}>
+                            <form autoComplete='off'>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="h6">
+                                            Editar Usuário
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Divider style={{ margin: '5px 0' }} />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label='Nome Completo'
+                                            onChange={(event) => setInput(event, 'fullName')}
+                                            value={data.fullName}
+                                            fullWidth
+                                            variant="standard"
                                         />
                                     </Grid>
-                                </ThemeProvider>
-
-                                <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    <Divider style={{ margin: '5px 0' }} />
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label='Email'
+                                            onChange={(event) => setInput(event, 'email')}
+                                            value={data.email}
+                                            fullWidth
+                                            variant="standard"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label='Telefone'
+                                            onChange={(event) => setInput(event, 'phone')}
+                                            value={data.phone}
+                                            fullWidth
+                                            variant="standard"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label="Data de Nascimento"
+                                            type="date"
+                                            variant="standard"
+                                            fullWidth
+                                            value={data.dateBirth}
+                                            onChange={(event) => setInput(event, 'dateBirth')}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label='Endereço'
+                                            onChange={(event) => setInput(event, 'adress')}
+                                            value={data.adress}
+                                            fullWidth
+                                            variant="standard"
+                                        />
+                                    </Grid>
+                                    {/* <Grid item xs={12} sm={6}>
+                                        <TextField
+                                            label='Senha'
+                                            onChange={(event) => setInput(event, 'password')}
+                                            value={data.password}
+                                            fullWidth
+                                            variant="standard"
+                                        />
+                                    </Grid> */}
+                                    <Grid item xs={12}>
+                                        <Divider style={{ margin: '5px 0' }} />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            variant='outlined'
+                                            color="primary"
+                                            onClick={storeTable}
+                                        >
+                                            Enviar
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={12}>
-                                    <Button variant='outlined' type='button' color="warning" onClick={() => storeTable(id)}>Enviar</Button>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </Box>
-                </Fade>
-            </Modal>
+                            </form>
+                        </Box>
+                    </Fade>
+                </Modal>
+            </ThemeProvider>
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={6000}
@@ -191,6 +252,7 @@ const ModalEditUser = ({ id, open, close, setTable }) => {
                 message={snackbarMessage}
             />
         </>
-    )
-}
-export default ModalEditUser
+    );
+};
+
+export default ModalEditUser;
