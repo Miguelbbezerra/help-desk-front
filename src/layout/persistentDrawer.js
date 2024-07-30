@@ -20,6 +20,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Notificacao from '../components/notificacao/notificacao';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -77,6 +79,7 @@ const items = [
   { text: 'Home', icon: <HomeIcon />, route: '/home' },
   { text: 'Pedidos', icon: <HelpOutlineIcon />, route: '/pedidos' },
   { text: 'Configurações', icon: <SettingsIcon />, route: '/configuracoes' },
+
   // { text: 'Inbox', icon: <InboxIcon />, route: '' },
 ];
 
@@ -120,6 +123,11 @@ export default function PersistentDrawerLeft({ children }) {
   };
 
   const routeName = getRouteName();
+
+  function logout() {
+    localStorage.removeItem('token')
+    return window.location.reload()
+  }
 
   return (
     <Box sx={{ display: 'flex', borderRight: 0 }}>
@@ -184,6 +192,16 @@ export default function PersistentDrawerLeft({ children }) {
               </ListItem>
             </Link>
           ))}
+          <Button onClick={() => logout()} fullWidth style={{ textDecoration: 'none', color: '#fff', padding: 0 }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: '#fff' }}>
+                  <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Log Out" />
+              </ListItemButton>
+            </ListItem>
+          </Button>
         </List>
       </Drawer>
       <Main open={open}>
