@@ -46,6 +46,7 @@ const theme = createTheme({
 
 const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
   const [message, setMessage] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +54,8 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
       const msg = {
         message: message,
         ticketId: ticketId,
-        userId: userId
+        userId: userId,
+        fullName: user.fullName
       };
       onSendMessage(msg); // Envia a mensagem com os IDs necessários
       setMessage('');
@@ -61,7 +63,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
   };
 
   return (
-    <div style={{ margin: '10px 0', width: '100%'}}>
+    <div style={{ margin: '10px 0', width: '100%' }}>
       <form style={{ display: 'flex' }} onSubmit={handleSubmit}>
         <ThemeProvider theme={theme}>
           <TextField
@@ -84,7 +86,7 @@ const InputMensagem = ({ onSendMessage, userId, ticketId }) => {
             }}
           />
         </ThemeProvider>
-        <Button id='index' variant="outlined" sx={{ width: '25%', height: '40px'}} type="submit">
+        <Button id='index' variant="outlined" sx={{ width: '25%', height: '40px' }} type="submit">
           Enviar
         </Button>
       </form>

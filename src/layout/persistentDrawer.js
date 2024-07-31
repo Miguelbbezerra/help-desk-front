@@ -126,6 +126,7 @@ export default function PersistentDrawerLeft({ children }) {
 
   function logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     return window.location.reload()
   }
 

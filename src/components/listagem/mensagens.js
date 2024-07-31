@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import '../../styles/mensagens.css';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, IconButton } from "@mui/material";
+import { Grid } from "@mui/material";
 import io from 'socket.io-client';
 import { getHeaders } from "../../config/headers/header";
 
 const socket = io('http://localhost:5000');
 
-export function Mensagens({ ticketId}) {
+export function Mensagens({ ticketId }) {
   const { id } = useParams();
   const [mensagens, setMensagens] = useState([]);
   const [highlightedMessageId, setHighlightedMessageId] = useState(null);
   const messageEndRef = useRef(null);
+  const userId = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
@@ -69,17 +68,17 @@ export function Mensagens({ ticketId}) {
       ) : (
         <>
           {mensagens.map((mensagem, index) => (
-            <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: parseInt(mensagem.userId) === 2 ? 'flex-end' : 'flex-start' }}>
+            <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: parseInt(mensagem.userId) === userId.id ? 'flex-end' : 'flex-start' }}>
               <div style={{ width: '50%' }}>
                 <Grid item xs={12} className={highlightedMessageId === mensagem.id ? 'highlight' : ''} style={{
                   display: 'flex', flexDirection: 'column', backgroundColor: '#222222', margin: '5px', borderRadius: '6px', padding: '10px', color: 'lightgray',
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h4 style={{ margin: '0', color: '#fff' }}>{mensagem?.userId}</h4>
-                    <div>
+                    <h4 style={{ margin: '0', color: '#fff' }}>{mensagem.user.fullName}</h4>
+                    {/* <div>
                       <IconButton><EditIcon color="primary" sx={{ fontSize: 20 }} /></IconButton>
                       <IconButton ><DeleteIcon color="error" sx={{ fontSize: 20 }} /></IconButton>
-                    </div>
+                    </div> */}
                   </div>
                   <p style={{ wordWrap: 'break-word' }}>
                     {mensagem.message}

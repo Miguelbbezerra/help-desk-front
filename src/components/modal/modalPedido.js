@@ -73,13 +73,14 @@ export default function ModalPedido({ setTicket }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [formData, setFormData] = useState({
         title: '',
         body: '',
         categoryId: '',
         status: '',
-        userId: 2
+        userId: user.id
     })
 
     function setInput(event, key) {

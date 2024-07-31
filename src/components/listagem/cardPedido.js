@@ -14,27 +14,35 @@ export default function CardPedido({ status, category, ticketId, search, setTick
     const [selectedId, setSelectedId] = useState(null);
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+    const user = localStorage.getItem('user');
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await fetchTicket(status, category, ticketId, search);
-                setTickets(data);
+                const userFormated = JSON.parse(user)
+                if (userFormated.level === 'comum') {
+                    const filtroUser = `userId=${userFormated.id}`
+                    const data = await fetchTicket(status, category, ticketId, search, filtroUser);
+                    setTickets(data);
+                } else {
+                    const data = await fetchTicket(status, category, ticketId, search);
+                    setTickets(data);
+                }
             } catch (error) {
                 console.error('Erro ao buscar tickets:', error);
             }
         }
         fetchData();
-    }, [status, category, ticketId, search]);
+    }, [status, category, ticketId, search, user]);
 
-    async function fetchTicket(status, category, ticketId, search) {
+    async function fetchTicket(status, category, ticketId, search, userId) {
         const requestOptions = {
             headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:5000/ticket/?${status}&${category}&${ticketId}&${search}&active=1`, requestOptions);
+        const response = await fetch(`http://localhost:5000/ticket/?${userId}&${status}&${category}&${ticketId}&${search}&active=1`, requestOptions);
         if (!response.ok) {
             throw new Error('Falha em listar os tickets');
         }
@@ -97,7 +105,7 @@ export default function CardPedido({ status, category, ticketId, search, setTick
             {selectedId !== null && (
                 <>
                     <ModalEditTicket open={openEdit} close={handleClose} ticketId={selectedId} setTicket={setTicket} />
-                    <ModalDelete open={openDelete} close={handleCloseDelete} table='ticket' id={selectedId} setTicket={setTicket}/>
+                    <ModalDelete open={openDelete} close={handleCloseDelete} table='ticket' id={selectedId} setTicket={setTicket} />
                 </>
             )}
         </>
