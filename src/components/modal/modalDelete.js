@@ -1,4 +1,5 @@
 import { Backdrop, Box, Button, Divider, Fade, Grid, Modal, Typography } from "@mui/material"
+import { getHeaders } from "../../config/headers/header";
 
 
 const style = {
@@ -18,16 +19,13 @@ const style = {
 const ModalDelete = ({ open, close, table, id, setTicket }) => {
 
     function deleteItem(table, id) {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
         var raw = JSON.stringify({
             active: 0
         });
 
         var requestOptions = {
             method: 'PUT',
-            headers: myHeaders,
+            headers: getHeaders(),
             body: raw,
             redirect: 'follow'
         };

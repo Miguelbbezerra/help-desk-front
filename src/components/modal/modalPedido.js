@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, Divider, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
+import { getHeaders } from '../../config/headers/header';
 
 const style = {
     position: 'absolute',
@@ -138,18 +139,13 @@ export default function ModalPedido({ setTicket }) {
     }
 
     function storeTicket() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
         var raw = JSON.stringify(formData);
-
         var requestOptions = {
             method: 'POST',
-            headers: myHeaders,
+            headers: getHeaders(),
             body: raw,
             redirect: 'follow'
         };
-
         fetch("http://localhost:5000/ticket", requestOptions)
             .then(async (response) => {
                 if (!response.ok) {

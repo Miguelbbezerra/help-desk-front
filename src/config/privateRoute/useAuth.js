@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 
-const useAuth = (token) => {
+const UseAuth = (token) => {
   const [isValid, setIsValid] = useState(null);
 
   useEffect(() => {
     const validateToken = async () => {
       if (!token) {
-        setIsValid(false);
+        setIsValid({ valid: false });
         return;
       }
       try {
-        const raw = JSON.stringify({ token: `${token}` });
+        const raw = JSON.stringify({ token });
         const response = await fetch('http://localhost:5000/validate-token', {
           method: 'POST',
           headers: {
@@ -20,10 +20,10 @@ const useAuth = (token) => {
         });
 
         const data = await response.json();
-        setIsValid(data.valid);
+        setIsValid(data);
       } catch (error) {
         console.error('Error validating token:', error);
-        setIsValid(false);
+        setIsValid({ valid: false });
       }
     };
 
@@ -33,4 +33,4 @@ const useAuth = (token) => {
   return isValid;
 };
 
-export default useAuth;
+export default UseAuth;

@@ -1,5 +1,6 @@
 import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
 import { useState } from "react";
+import { getHeaders } from "../../config/headers/header";
 
 const style = {
     position: 'absolute',
@@ -76,8 +77,6 @@ const ModalStore = ({ open, close, setTable, table }) => {
 
     const storeTable = async (table) => {
         try {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
             var newData
             if (table === 'status') {
                 newData = {
@@ -91,7 +90,7 @@ const ModalStore = ({ open, close, setTable, table }) => {
             var raw = JSON.stringify(newData);
             const requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
+                headers: getHeaders(),
                 body: raw,
                 redirect: 'follow'
             };

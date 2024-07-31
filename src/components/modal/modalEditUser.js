@@ -1,6 +1,6 @@
 import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-
+import { getHeaders } from "../../config/headers/header";
 const style = {
     position: 'absolute',
     top: '50%',
@@ -78,7 +78,8 @@ const ModalEditUser = ({ id, open, close, setTable }) => {
         try {
             const response = await fetch(`http://localhost:5000/user?id=${id}`, {
                 method: 'GET',
-                redirect: 'follow'
+                redirect: 'follow',
+                headers: getHeaders(),
             });
             const data = await response.json();
             return data;
@@ -123,12 +124,10 @@ const ModalEditUser = ({ id, open, close, setTable }) => {
             if (!id) {
                 throw new Error('ID não fornecido');
             }
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
             var raw = JSON.stringify(data);
             const response = await fetch(`http://localhost:5000/user/${id}`, {
                 method: 'PUT',
-                headers: myHeaders,
+                headers: getHeaders(),
                 body: raw,
                 redirect: 'follow'
             });

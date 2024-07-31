@@ -7,6 +7,7 @@ import ModalDelete from "../components/modal/modalDelete";
 import { format, parseISO } from "date-fns";
 import ModalStoreUser from "../components/modal/modalStoreUser";
 import ModalEditUser from "../components/modal/modalEditUser";
+import { getHeaders } from "../config/headers/header";
 
 const Usuarios = () => {
 
@@ -22,7 +23,8 @@ const Usuarios = () => {
         try {
             const requestOptions = {
                 method: 'GET',
-                redirect: 'follow'
+                redirect: 'follow',
+                headers: getHeaders(),
             };
 
             const response = await fetch(`http://localhost:5000/user?active=1&${filtro}`, requestOptions);

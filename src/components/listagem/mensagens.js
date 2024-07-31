@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid, IconButton } from "@mui/material";
 import io from 'socket.io-client';
+import { getHeaders } from "../../config/headers/header";
 
 const socket = io('http://localhost:5000');
 
@@ -19,10 +20,6 @@ export function Mensagens({ ticketId}) {
       if (msg.ticketId === ticketId) {
         setMensagens((prevMensagens) => [...prevMensagens, msg]);
         setHighlightedMessageId(msg.id);
-
-        // setTimeout(() => {
-        //   setHighlightedMessageId(null);
-        // }, 3000);
       }
     });
 
@@ -48,6 +45,7 @@ export function Mensagens({ ticketId}) {
   const fetchMensagens = async (id) => {
     try {
       const requestOptions = {
+        headers: getHeaders(),
         method: 'GET',
         redirect: 'follow'
       };

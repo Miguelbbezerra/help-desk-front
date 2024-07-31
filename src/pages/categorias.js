@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import ModalDelete from "../components/modal/modalDelete";
 import ModalEdit from "../components/modal/modalEdit";
 import ModalStore from "../components/modal/modalStore";
+import { getHeaders } from "../config/headers/header";
 
 const Categorias = () => {
 
@@ -21,7 +22,8 @@ const Categorias = () => {
         try {
             const requestOptions = {
                 method: 'GET',
-                redirect: 'follow'
+                redirect: 'follow',
+                headers: getHeaders(),
             };
 
             const response = await fetch(`http://localhost:5000/category?active=1&${filtro}`, requestOptions);

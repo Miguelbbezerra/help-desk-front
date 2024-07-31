@@ -1,3 +1,4 @@
+import { getHeaders } from '../../config/headers/header';
 import '../../styles/statusCategory.css'
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
@@ -31,6 +32,7 @@ export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
 
     async function fetchStatus() {
         const requestOptions = {
+            headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };
@@ -75,6 +77,7 @@ export const StatusCategory = forwardRef(({ setStatus, setCategory }, ref) => {
 
     async function fetchCategory() {
         const requestOptions = {
+            headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };

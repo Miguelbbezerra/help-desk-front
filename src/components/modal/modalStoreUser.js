@@ -1,5 +1,6 @@
 import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material"
 import { useState } from "react"
+import { getHeaders } from "../../config/headers/header";
 
 
 const style = {
@@ -83,33 +84,22 @@ const ModalStoreUser = ({ open, close, setTable }) => {
 
     const storeTable = async () => {
         try {
-            // Formatar a data para o padrão YYYY-MM-DD
             if (data.dateBirth) {
                 const date = new Date(data.dateBirth);
-                const formattedDate = date.toISOString().split('T')[0]; // Pega a data no formato YYYY-MM-DD
-                data.dateBirth = formattedDate; // Atualiza o campo dateBirth no objeto data
+                const formattedDate = date.toISOString().split('T')[0];
+                data.dateBirth = formattedDate;
             }
-
-            // Preparar os cabeçalhos e o corpo da solicitação
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const raw = JSON.stringify(data); // Converte o objeto data atualizado para JSON
-
-            // Enviar a solicitação POST
+            const raw = JSON.stringify(data);
             const response = await fetch(`http://localhost:5000/user`, {
                 method: 'POST',
-                headers: myHeaders,
+                headers: getHeaders(),
                 body: raw,
                 redirect: 'follow'
             });
-
-            // Verificar se a resposta foi bem-sucedida
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || `Erro ao salvar usuário`);
             }
-
-            // Processar a resposta JSON
             const result = await response.json();
             setData({
                 email: "",

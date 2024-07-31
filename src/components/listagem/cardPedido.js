@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModalDelete from '../modal/modalDelete';
+import { getHeaders } from '../../config/headers/header';
 
 export default function CardPedido({ status, category, ticketId, search, setTicket }) {
     const [tickets, setTickets] = useState([]);
@@ -28,6 +29,7 @@ export default function CardPedido({ status, category, ticketId, search, setTick
 
     async function fetchTicket(status, category, ticketId, search) {
         const requestOptions = {
+            headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };

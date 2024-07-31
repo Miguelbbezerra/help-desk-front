@@ -17,6 +17,7 @@ import {
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getHeaders } from "../../config/headers/header";
 
 const style = {
     position: 'absolute',
@@ -130,6 +131,7 @@ export default function ModalEditTicket({ ticketId, open, close, setTicket }) {
 
     async function fetchTicket(id) {
         const requestOptions = {
+            headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };

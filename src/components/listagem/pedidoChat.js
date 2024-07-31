@@ -3,6 +3,7 @@ import '../../styles/pedidoChat.css'
 import { Button, CardMedia, Divider, Grid } from "@mui/material";
 import ModalEditTicket from "../modal/modalEditTicket";
 import ModalDelete from "../modal/modalDelete";
+import { getHeaders } from "../../config/headers/header";
 
 export default function PedidoChat({ ticketId }) {
 
@@ -27,9 +28,9 @@ export default function PedidoChat({ ticketId }) {
                 setLoading(false);
             }
         }
-        if(verificaTicket === null){
+        if (verificaTicket === null) {
             fetchData(ticketHolder);
-        } else{
+        } else {
             window.location.href = '/pedidos';
         }
 
@@ -37,6 +38,7 @@ export default function PedidoChat({ ticketId }) {
 
     async function fetchTicket(ticketId) {
         const requestOptions = {
+            headers: getHeaders(),
             method: 'GET',
             redirect: 'follow'
         };

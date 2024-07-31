@@ -1,5 +1,6 @@
 import { Backdrop, Box, Button, createTheme, Divider, Fade, Grid, Modal, Snackbar, TextField, ThemeProvider, Typography } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
+import { getHeaders } from "../../config/headers/header";
 
 
 const style = {
@@ -72,6 +73,7 @@ const ModalEdit = ({ id, open, close, setTable, table }) => {
     const fetchTable = useCallback(async (id, table) => {
         try {
             const response = await fetch(`http://localhost:5000/${table}?id=${id}`, {
+                headers: getHeaders(),
                 method: 'GET',
                 redirect: 'follow'
             })
@@ -107,8 +109,6 @@ const ModalEdit = ({ id, open, close, setTable, table }) => {
 
     const storeTable = async (table, id) => {
         try {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
             var newData
             if (table === 'status') {
                 newData = {
@@ -122,7 +122,7 @@ const ModalEdit = ({ id, open, close, setTable, table }) => {
             var raw = JSON.stringify(newData);
             const response = await fetch(`http://localhost:5000/${table}/${id}`, {
                 method: 'PUT',
-                headers: myHeaders,
+                headers: getHeaders(),
                 body: raw,
                 redirect: 'follow'
             })
