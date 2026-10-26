@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Help Desk — Front
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface web do sistema de chamados. Usuários abrem e acompanham tickets e
+conversam com o suporte pelo chat de cada ticket, que atualiza em tempo real.
 
-## Available Scripts
+A API (Node + Express + Socket.io) está em [help-desk-api](https://github.com/Miguelbbezerra/help-desk-api).
 
-In the project directory, you can run:
+**Stack:** React 18 · Material UI · React Router · Socket.io client
 
-### `npm start`
+## Telas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Login**, com rota privada: sem token válido, volta para o login.
+- **Pedidos (tickets):** listagem com busca e filtro por status e categoria, abertura
+  e edição de chamado.
+- **Chat do ticket:** mensagens em tempo real via Socket.io.
+- **Notificações:** aviso quando um ticket é criado ou atualizado e quando chega
+  mensagem nova. Dá para marcar como lida.
+- **Configurações** (só admin): cadastro de usuários, categorias e status.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+O que cada usuário vê depende do nível: `admin` acessa as configurações e todos os
+tickets, e `comum` vê os próprios.
 
-### `npm test`
+## Estrutura
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+src/
+├── pages/          # login, home, pedidos, chat, categorias, status, usuarios, configuracoes
+├── components/     # filtros, listagem, modais (criar/editar/excluir), notificação
+├── config/         # rotas, rota privada, contexto do usuário, header com o token
+├── layout/         # menu lateral (drawer)
+└── styles/
+```
 
-### `npm run build`
+## Rodando
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Precisa da [API](https://github.com/Miguelbbezerra/help-desk-api) rodando em
+`http://localhost:5000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+npm start        # abre em http://localhost:3000
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Pontos conhecidos para melhorar
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- A URL da API (`http://localhost:5000`) está repetida em vários componentes.
+  Deveria vir de uma variável de ambiente (`REACT_APP_API_URL`) e de um cliente HTTP
+  único.
+- A API aceita anexos de imagem nos tickets, mas a tela ainda não tem o upload.
+- A página `testeChat.js` sobrou dos testes de Socket.io e pode sair.
+- Não há testes de componente.
